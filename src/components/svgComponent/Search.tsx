@@ -1,12 +1,5 @@
-import { SVGProps } from "react";
-const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={21}
-    height={15}
-    fill="none"
-    {...props}
-  >
+const SvgComponent = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={21} height={15} fill="none">
     <mask id="a" fill="#fff">
       <path d="M.2 7.5a7.5 7.5 0 1 1 15 0 7.5 7.5 0 0 1-15 0Z" />
     </mask>

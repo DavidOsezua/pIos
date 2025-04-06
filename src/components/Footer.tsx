@@ -4,9 +4,7 @@ import { Facebook } from "./svgComponent/Facebook";
 import { Linkedin } from "./svgComponent/Linkedin";
 import { footerLinks } from "@/data/data";
 
-type Props = {};
-
-const Footer = (props: Props) => {
+const Footer = () => {
   return (
     <footer className="section bg-accentone px-5 md:px-0">
       <div

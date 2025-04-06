@@ -7,13 +7,10 @@ import {
   ResearchbyPLOS,
   ResearchJournals,
 } from "./pages";
-import "./styles/global.css"
+import "./styles/global.css";
 
-type Props = {};
-
-const App = (props: Props) => {
+const App = () => {
   return (
-    
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />

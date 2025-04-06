@@ -1,9 +1,6 @@
 import { Footer, Hero, Navbar } from "@/components";
-import React from "react";
 
-type Props = {};
-
-const ResearchbyPLOS = (props: Props) => {
+const ResearchbyPLOS = () => {
   return (
     <div className="transitionss">
       <Navbar />

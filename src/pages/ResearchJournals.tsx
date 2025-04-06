@@ -1,8 +1,6 @@
 import { Footer, Hero, Navbar } from "@/components";
 
-type Props = {};
-
-const ResearchJournals = (props: Props) => {
+const ResearchJournals = () => {
   return (
     <div className="transitionss">
       <Navbar />

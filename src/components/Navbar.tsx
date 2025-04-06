@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 import { Search } from "./svgComponent/Search";
 import { expandedLinks, navLinks } from "@/data/data";
 
-type Props = {};
 
-const Navbar = (props: Props) => {
+
+const Navbar = () => {
   const [expand, setExpand] = useState(false);
 
   const handleExpand = () => {

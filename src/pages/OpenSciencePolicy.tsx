@@ -1,8 +1,7 @@
 import { Footer, Hero, Navbar } from "@/components";
 
-type Props = {};
 
-const OpenSciencePolicy = (props: Props) => {
+const OpenSciencePolicy = () => {
   return (
     <div className="transitionss">
       {" "}
