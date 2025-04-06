@@ -25,9 +25,9 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="flex justify-between gap-[5rem]">
+        <div className="flex justify-between gap-[3rem]">
           {footerLinks.map((links) => (
-            <ul className={`space-y-2`}>
+            <ul className={`text-[0.7rem] md:text-[1rem] space-y-2`}>
               {links.firstLinks.map((link) => (
                 <li className={`text-white`}>{link}</li>
               ))}

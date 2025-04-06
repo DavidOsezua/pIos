@@ -1,5 +1,6 @@
 import { Button, Footer, Hero, Navbar } from "@/components";
-import { homePageOpenScience } from "@/data/data";
+import { homePageOpenScience, navLinks } from "@/data/data";
+import { NavLink } from "react-router-dom";
 
 const Homepage = () => {
   return (
@@ -12,17 +13,19 @@ const Homepage = () => {
         />
 
         <section className={`section`}>
-          <div className="sectionContainer px-6 lg:px-0">
+          <div className="sectionContainer space-y-20 px-6 lg:px-0">
             <h3>
               PLOS is a non-profit organization on a mission to drive open
               science forward with measurable, meaningful change in research
               publishing, policy and practice.
             </h3>
 
-            <div>
-              <div>
+            <div
+              className={` space-y-5 md:flex md:flex-row md:justify-between md:items-center`}
+            >
+              <div className={`space-y-5`}>
                 <h3>A catalyst for better</h3>
-                <p>
+                <p className={`md:max-w-[540px]`}>
                   Built on a strong legacy of pioneering innovation, we see the
                   world through a lens of possibility, but we are not interested
                   in change for the sake of change. We believe in better . We
@@ -31,7 +34,7 @@ const Homepage = () => {
                   funders, and institutional leaders, not shareholders. Our
                   vision and mission is at the center of our new brand identity.
                 </p>
-                <Button>Find out more</Button>
+                <Button className={`bg-accentone text-white`}>Find out more</Button>
               </div>
 
               <div>
@@ -42,7 +45,7 @@ const Homepage = () => {
         </section>
         <div className=" bg-[#E7E6E6] h-[2px] w-[90%] mx-auto"></div>
         <section className={`section`}>
-          <div className={`sectionContainer`}>
+          <div className={`sectionContainer space-y-5 px-[1rem]`}>
             <h3>Open science</h3>
 
             <p>
@@ -57,25 +60,37 @@ const Homepage = () => {
               equitable, and innovations in scholarly communications.
             </p>
 
-            <div>
+            <div
+              className={`space-y-5 md:flex md:items-center md:justify-between md:gap-6`}
+            >
               {homePageOpenScience.map((data) => (
-                <div>
+                <div className={`space-y-3`}>
                   <h2>{data.title}</h2>
 
                   <h4>{data.subTitle}</h4>
 
-                  <p>{data.text}</p>
+                  <p className={`md:max-w-[330px]`}>{data.text}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
         <div className=" bg-[#E7E6E6] h-[2px] w-[90%] mx-auto"></div>
-        <section className={`section`}>
-          <div className={`sectionContainer`}>
-            <div>
-              <img src="img2.png" alt="" />
-              <div></div>
+
+        <section className={`section `}>
+          <div className={`sectionContainer pt-[8rem]`}>
+            <div className={`relative px-[1rem]`}>
+              <ul
+                className={`bg-accentone max-w-[340px] w-full mb-[-4rem] relative z-10 mx-auto  text-white p-12   `}
+              >
+                {navLinks.map((item) => (
+                  <li>
+                    <NavLink to={item.path}>{item.link}</NavLink>
+                  </li>
+                ))}
+              </ul>
+
+              <img src="img2.png" alt="" className={`h-[400px] object-cover`} />
             </div>
           </div>
         </section>
