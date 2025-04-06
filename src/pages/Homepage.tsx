@@ -1,4 +1,4 @@
-import { Button, Footer, Hero, Navbar } from "@/components";
+import { Button, Footer, Navbar } from "@/components";
 import { homePageOpenScience } from "@/data/data";
 
 const Homepage = () => {
