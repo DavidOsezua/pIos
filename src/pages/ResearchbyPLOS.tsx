@@ -7,7 +7,7 @@ const ResearchbyPLOS = () => {
       <main className={`overflow-hidden`}>
         <Hero
           headingTitle="Research by PLOS"
-          background={`bg-[url(pFeeImage.png)]`}
+          background={`bg-[url(../../public/pFeeImage.png)]`}
         />
       </main>
       <Footer />

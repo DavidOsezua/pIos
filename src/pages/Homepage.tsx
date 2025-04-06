@@ -1,4 +1,4 @@
-import { Button, Footer, Navbar } from "@/components";
+import { Button, Footer, Hero, Navbar } from "@/components";
 import { homePageOpenScience } from "@/data/data";
 
 const Homepage = () => {
@@ -6,23 +6,10 @@ const Homepage = () => {
     <div className="transitionss">
       <Navbar />
       <main className={`overflow-hidden`}>
-        {/* <Hero
+        <Hero
           headingTitle="We believe in a better future where science is open to all, for all"
-          background={`bg-[url(homeImage.png)]`}
-        /> */}
-        <section
-          className={` bg-[url(../../public/homeImage.png)] h-[500px] w-full bg-no-repeat bg-cover pg-center mt-[3rem] `}
-        >
-          <div className=" flex h-[500px] px-6  lg:px-0 sectionContainer items-center">
-            <h1
-              className={`text-white w-[420px] h-[160px] font-['Open_Sans'] not-italic font-extrabold text-[33.8191px] leading-[55px]`}
-            >
-              We believe in a better future where science is open to all, for
-              all
-              {/* {headingTitle} */}
-            </h1>
-          </div>
-        </section>
+          background={`bg-[url(../../public/homeImage.png)]`}
+        />
 
         <section className={`section`}>
           <div className="sectionContainer px-6 lg:px-0">

@@ -7,7 +7,7 @@ const PublicationFees = () => {
       <main className={`overflow-hidden`}>
         <Hero
           headingTitle="Publication fees"
-          background={`bg-[url(pFeeImage.png)]`}
+          background={`bg-[url(../../public/pFeeImage.png)]`}
         />
       </main>
       <Footer />

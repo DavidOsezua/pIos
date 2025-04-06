@@ -1,6 +1,7 @@
 import { Footer, Hero, Navbar } from "@/components";
 
 
+
 const OpenSciencePolicy = () => {
   return (
     <div className="transitionss">
@@ -9,7 +10,7 @@ const OpenSciencePolicy = () => {
       <main className={`overflow-hidden`}>
         <Hero
           headingTitle="Open Science and Editorial Policy"
-          background={`bg-[url(aboutImage.png)]`}
+          background={`bg-[url(../../public/aboutImage.png)]`}
         />
       </main>
       <Footer />

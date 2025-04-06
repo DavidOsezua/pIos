@@ -7,7 +7,7 @@ const ourMission = () => {
       <main className={`overflow-hidden`}>
         <Hero
           headingTitle="A catalyst for better"
-          background={`bg-[url(aboutImage.png)]`}
+          background={`bg-[url(../../public/aboutImage.png)]`}
         />
       </main>
       <Footer />
