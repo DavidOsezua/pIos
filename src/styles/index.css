@@ -1,0 +1,54 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --radius: 0.625rem;
+  --background: #ffffff;
+  --accentone: #01156b;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-accentone: var(--accentone);
+}
+
+@layer base {
+  * {
+  }
+  body {
+    @apply bg-background;
+  }
+}
+
+@layer utilities {
+  .line-below::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 98%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 5px;
+    background-color: var(--accentone); /* Inherits text color */
+    margin-top: 8px;
+  }
+
+
+  .section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .sectionContainer {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
