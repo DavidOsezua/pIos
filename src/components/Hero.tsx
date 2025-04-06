@@ -1,5 +1,3 @@
-
-
 type Props = {
   headingTitle: string;
   background: string;
