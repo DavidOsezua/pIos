@@ -10,9 +10,8 @@ const Homepage = () => {
           headingTitle="We believe in a better future where science is open to all, for all"
           background={`bg-[url(homeImage.png)]`}
         /> */}
-
         <section
-          className={` bg-[url(homeImage.png)] h-[500px] w-full bg-no-repeat bg-cover pg-center mt-[3rem] `}
+          className={` bg-[url(../../public/homeImage.png)] h-[500px] w-full bg-no-repeat bg-cover pg-center mt-[3rem] `}
         >
           <div className=" flex h-[500px] px-6  lg:px-0 sectionContainer items-center">
             <h1
@@ -54,9 +53,7 @@ const Homepage = () => {
             </div>
           </div>
         </section>
-
         <div className=" bg-[#E7E6E6] h-[2px] w-[90%] mx-auto"></div>
-
         <section className={`section`}>
           <div className={`sectionContainer`}>
             <h3>Open science</h3>
@@ -86,9 +83,7 @@ const Homepage = () => {
             </div>
           </div>
         </section>
-
         <div className=" bg-[#E7E6E6] h-[2px] w-[90%] mx-auto"></div>
-
         <section className={`section`}>
           <div className={`sectionContainer`}>
             <div>
