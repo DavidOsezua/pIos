@@ -1,4 +1,5 @@
 import { Button, Footer, Hero, Navbar } from "@/components";
+import SectionLine from "@/components/SectionLine";
 import { homePageOpenScience, navLinks } from "@/data/data";
 import { NavLink } from "react-router-dom";
 
@@ -45,7 +46,9 @@ const Homepage = () => {
             </div>
           </div>
         </section>
-        <div className=" bg-[#E7E6E6] h-[2px] w-[90%] mx-auto"></div>
+
+        <SectionLine />
+
         <section className={`section`}>
           <div className={`sectionContainer space-y-5 px-[1rem]`}>
             <h3>Open science</h3>
@@ -77,7 +80,8 @@ const Homepage = () => {
             </div>
           </div>
         </section>
-        <div className=" bg-[#E7E6E6] h-[2px] w-[90%] mx-auto"></div>
+
+        <SectionLine />
 
         <section className={`section  `}>
           <div className={`sectionContainer pt-[8rem]  `}>
