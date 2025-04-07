@@ -8,7 +8,7 @@ const OpenSciencePolicy = () => {
       <main className={`overflow-hidden`}>
         <Hero
           headingTitle="Open Science and Editorial Policy"
-          background={`bg-[url(../../public/aboutImage.png)]`}
+          background={`bg-[url(../../public/aboutMobileImage.png)]    md:bg-[url(../../public/aboutImage.png)]`}
         />
 
         <section className={`section`}>

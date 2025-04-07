@@ -7,7 +7,7 @@ const ResearchJournals = () => {
       <main className={`overflow-hidden`}>
         <Hero
           headingTitle="Research journals"
-          background={`bg-[url(../../public/aboutImage.png)]`}
+          background={`bg-[url(../../public/aboutMobileImage.png)]    md:bg-[url(../../public/aboutImage.png)]`}
         />
 
         <section className={`section`}>

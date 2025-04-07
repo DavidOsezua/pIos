@@ -10,7 +10,7 @@ const Homepage = () => {
       <main className={`overflow-hidden`}>
         <Hero
           headingTitle="We believe in a better future where science is open to all, for all"
-          background={`bg-[url(../../public/homeImage.png)]`}
+          background={`bg-[url(../../public/homeMobileImage.png)]  md:bg-[url(../../public/homeImage.png)]`}
         />
 
         <section className={`section`}>

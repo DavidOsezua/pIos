@@ -7,7 +7,7 @@ const ourMission = () => {
       <main className={`overflow-hidden`}>
         <Hero
           headingTitle="A catalyst for better"
-          background={`bg-[url(../../public/aboutImage.png)]`}
+          background={`bg-[url(../../public/aboutMobileImage.png)]    md:bg-[url(../../public/aboutImage.png)]`}
         />
 
         <section className={`section`}>
