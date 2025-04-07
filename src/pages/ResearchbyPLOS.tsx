@@ -12,7 +12,7 @@ const ResearchbyPLOS = () => {
         />
 
         <section className={`section`}>
-          <div className="sectionContainer space-y-5">
+          <div className="sectionContainer px-[1rem] lg:px-0  space-y-5">
             {/*  */}
             <div className={`space-y-5`}>
               <h4>
@@ -104,27 +104,326 @@ const ResearchbyPLOS = () => {
         <SectionLine width="w-full" />
 
         <section className={`section`}>
-          <div className="sectionContainer"></div>
+          <div className="sectionContainer px-[1rem] lg:px-0 space-y-5">
+            <h3>Understanding community needs</h3>
+
+            <p>
+              Meeting open science needs at PLOS Mental Health Karli
+              Montague-Cardoso, Marcel LaFlamme, Beruria Novich
+            </p>
+
+            <div>
+              <p>
+                Editorial <br /> September 18 2024
+              </p>
+            </div>
+          </div>
         </section>
 
         <SectionLine width="w-full" />
-        <section className={`section`}>
-          <div className="sectionContainer"></div>
+        <section className="section">
+          <div className="sectionContainer px-[1rem] lg:px-0 space-y-8">
+            {/* Section Title */}
+            <div>
+              <h2 className="text-xl font-bold text-accentone">Open code</h2>
+            </div>
+
+            {/* Article 1 */}
+            <div className="space-y-2">
+              <h3 className="font-bold">
+                A survey of researchers’ code sharing and code reuse practices,
+                and assessment of interactive notebook prototypes
+              </h3>
+              <p className="text-sm text-gray-700">
+                Lauren Cadwallader, Iain Hrynaszkiewicz
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-accentone font-semibold text-sm">
+                <div>
+                  <a href="#">Article</a>
+                  <p className="text-black font-normal">August 22 2022</p>
+                </div>
+                <div>
+                  <a href="#">Preprint</a>
+                  <p className="text-black font-normal">February 22 2022</p>
+                </div>
+                <div>
+                  <a href="#">Dataset</a>
+                  <p className="text-black font-normal">March 2 2022</p>
+                </div>
+              </div>
+            </div>
+
+            <hr className="border-gray-300" />
+
+            {/* Article 2 */}
+            <div className="space-y-2">
+              <h3 className="font-bold">
+                Advancing code sharing in the computational biology community
+              </h3>
+              <p className="text-sm text-gray-700">
+                Lauren Cadwallader, Feilim Mac Gabhann, Jason Papin, Virginia E.
+                Pitzer
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-accentone font-semibold text-sm">
+                <div>
+                  <a href="#">Editorial</a>
+                  <p className="text-black font-normal">June 2 2022</p>
+                </div>
+                <div>
+                  <a href="#">Dataset</a>
+                  <p className="text-black font-normal">February 3 2022</p>
+                </div>
+                <div>
+                  <a href="#">Code</a>
+                  <p className="text-black font-normal">May 27 2022</p>
+                </div>
+              </div>
+            </div>
+
+            <hr className="border-gray-300" />
+
+            {/* Article 3 */}
+            <div className="space-y-2">
+              <h3 className="font-bold">
+                Code Sharing Survey 2020 – PLOS Computational Biology
+              </h3>
+              <p className="text-sm text-gray-700">
+                Iain Hrynaszkiewicz, James Harney, Lauren Cadwallader
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-accentone font-semibold text-sm">
+                <div>
+                  <a href="#">Dataset</a>
+                  <p className="text-black font-normal">March 20 2021</p>
+                </div>
+                <div>
+                  <a href="#">Preprint</a>
+                  <p className="text-black font-normal">April 28 2021</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <SectionLine width="w-full" />
-        <section className={`section`}>
-          <div className="sectionContainer"></div>
+        <section className="section py-8">
+          <div className="sectionContainer px-[1rem] lg:px-0 max-w-5xl mx-auto ">
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-accentone mb-4">
+                Open data
+              </h2>
+
+              <h3 className="text-xl font-semibold mb-1">
+                Incentivising best practice in research data sharing:
+                Experiments to increase use of and engagement with data
+                repositories
+              </h3>
+              <p className="text-gray-700 mb-2">
+                Lauren Cadwallader, Beruría Novich, James Harney, Iain
+                Hrynaszkiewicz
+              </p>
+              <ul className="space-y-1">
+                <li>
+                  <span className="font-semibold text-accentone">Preprint</span>
+                  : November 7 2023
+                </li>
+                <li>
+                  <span className="font-semibold text-accentone">Dataset</span>:
+                  May 9 2023
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-1">
+                A survey of researchers’ needs and priorities for data sharing
+              </h3>
+              <p className="text-gray-700 mb-2">
+                Iain Hrynaszkiewicz, James Harney, Lauren Cadwallader
+              </p>
+              <ul className="space-y-1">
+                <li>
+                  <span className="font-semibold text-accentone">Article</span>:
+                  October 13 2021
+                </li>
+                <li>
+                  <span className="font-semibold text-accentone">Preprint</span>
+                  : February 22 2021
+                </li>
+                <li>
+                  <span className="font-semibold text-accentone">Dataset</span>:
+                  February 8 2021
+                </li>
+              </ul>
+            </div>
+          </div>
         </section>
 
         <SectionLine width="w-full" />
-        <section className={`section`}>
-          <div className="sectionContainer"></div>
+        <section className="section">
+          <div className="sectionContainer px-[1rem] lg:px-0 space-y-8">
+            {/* Section Title */}
+            <div>
+              <h2 className="text-xl font-bold text-accentone">Open code</h2>
+            </div>
+
+            {/* Article 1 */}
+            <div className="space-y-2">
+              <h3 className="font-bold">
+                A survey of researchers’ code sharing and code reuse practices,
+                and assessment of interactive notebook prototypes
+              </h3>
+              <p className="text-sm text-gray-700">
+                Lauren Cadwallader, Iain Hrynaszkiewicz
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-accentone font-semibold text-sm">
+                <div>
+                  <a href="#">Article</a>
+                  <p className="text-black font-normal">August 22 2022</p>
+                </div>
+                <div>
+                  <a href="#">Preprint</a>
+                  <p className="text-black font-normal">February 22 2022</p>
+                </div>
+                <div>
+                  <a href="#">Dataset</a>
+                  <p className="text-black font-normal">March 2 2022</p>
+                </div>
+              </div>
+            </div>
+
+            <hr className="border-gray-300" />
+
+            {/* Article 2 */}
+            <div className="space-y-2">
+              <h3 className="font-bold">
+                Advancing code sharing in the computational biology community
+              </h3>
+              <p className="text-sm text-gray-700">
+                Lauren Cadwallader, Feilim Mac Gabhann, Jason Papin, Virginia E.
+                Pitzer
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-accentone font-semibold text-sm">
+                <div>
+                  <a href="#">Editorial</a>
+                  <p className="text-black font-normal">June 2 2022</p>
+                </div>
+                <div>
+                  <a href="#">Dataset</a>
+                  <p className="text-black font-normal">February 3 2022</p>
+                </div>
+                <div>
+                  <a href="#">Code</a>
+                  <p className="text-black font-normal">May 27 2022</p>
+                </div>
+              </div>
+            </div>
+
+            <hr className="border-gray-300" />
+
+            {/* Article 3 */}
+            <div className="space-y-2">
+              <h3 className="font-bold">
+                Code Sharing Survey 2020 – PLOS Computational Biology
+              </h3>
+              <p className="text-sm text-gray-700">
+                Iain Hrynaszkiewicz, James Harney, Lauren Cadwallader
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-accentone font-semibold text-sm">
+                <div>
+                  <a href="#">Dataset</a>
+                  <p className="text-black font-normal">March 20 2021</p>
+                </div>
+                <div>
+                  <a href="#">Preprint</a>
+                  <p className="text-black font-normal">April 28 2021</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <SectionLine width="w-full" />
-        <section className={`section`}>
-          <div className="sectionContainer"></div>
+        <section className="section">
+          <div className="sectionContainer px-[1rem] lg:px-0 space-y-8">
+            {/* Section Title */}
+            <div>
+              <h2 className="text-xl font-bold text-accentone">Open code</h2>
+            </div>
+
+            {/* Article 1 */}
+            <div className="space-y-2">
+              <h3 className="font-bold">
+                A survey of researchers’ code sharing and code reuse practices,
+                and assessment of interactive notebook prototypes
+              </h3>
+              <p className="text-sm text-gray-700">
+                Lauren Cadwallader, Iain Hrynaszkiewicz
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-accentone font-semibold text-sm">
+                <div>
+                  <a href="#">Article</a>
+                  <p className="text-black font-normal">August 22 2022</p>
+                </div>
+                <div>
+                  <a href="#">Preprint</a>
+                  <p className="text-black font-normal">February 22 2022</p>
+                </div>
+                <div>
+                  <a href="#">Dataset</a>
+                  <p className="text-black font-normal">March 2 2022</p>
+                </div>
+              </div>
+            </div>
+
+            <hr className="border-gray-300" />
+
+            {/* Article 2 */}
+            <div className="space-y-2">
+              <h3 className="font-bold">
+                Advancing code sharing in the computational biology community
+              </h3>
+              <p className="text-sm text-gray-700">
+                Lauren Cadwallader, Feilim Mac Gabhann, Jason Papin, Virginia E.
+                Pitzer
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-accentone font-semibold text-sm">
+                <div>
+                  <a href="#">Editorial</a>
+                  <p className="text-black font-normal">June 2 2022</p>
+                </div>
+                <div>
+                  <a href="#">Dataset</a>
+                  <p className="text-black font-normal">February 3 2022</p>
+                </div>
+                <div>
+                  <a href="#">Code</a>
+                  <p className="text-black font-normal">May 27 2022</p>
+                </div>
+              </div>
+            </div>
+
+            <hr className="border-gray-300" />
+
+            {/* Article 3 */}
+            <div className="space-y-2">
+              <h3 className="font-bold">
+                Code Sharing Survey 2020 – PLOS Computational Biology
+              </h3>
+              <p className="text-sm text-gray-700">
+                Iain Hrynaszkiewicz, James Harney, Lauren Cadwallader
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-accentone font-semibold text-sm">
+                <div>
+                  <a href="#">Dataset</a>
+                  <p className="text-black font-normal">March 20 2021</p>
+                </div>
+                <div>
+                  <a href="#">Preprint</a>
+                  <p className="text-black font-normal">April 28 2021</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />
