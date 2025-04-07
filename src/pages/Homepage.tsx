@@ -34,7 +34,9 @@ const Homepage = () => {
                   funders, and institutional leaders, not shareholders. Our
                   vision and mission is at the center of our new brand identity.
                 </p>
-                <Button className={`bg-accentone text-white`}>Find out more</Button>
+                <Button className={`bg-accentone text-white`}>
+                  Find out more
+                </Button>
               </div>
 
               <div>
@@ -77,11 +79,11 @@ const Homepage = () => {
         </section>
         <div className=" bg-[#E7E6E6] h-[2px] w-[90%] mx-auto"></div>
 
-        <section className={`section `}>
-          <div className={`sectionContainer pt-[8rem]`}>
-            <div className={`relative px-[1rem]`}>
+        <section className={`section  `}>
+          <div className={`sectionContainer pt-[8rem]  `}>
+            <div className={`relative px-[1rem] md:flex`}>
               <ul
-                className={`bg-accentone max-w-[340px] w-full mb-[-4rem] relative z-10 mx-auto  text-white p-12   `}
+                className={`bg-accentone max-w-[340px] w-full mb-[-4rem] relative z-10 mx-auto  text-white p-12 md:mr-[-10rem] md:h-[240px] md:mt-[4rem]  `}
               >
                 {navLinks.map((item) => (
                   <li>
