@@ -47,7 +47,7 @@ const Homepage = () => {
           </div>
         </section>
 
-        <SectionLine />
+        <SectionLine width="w-[90%]" />
 
         <section className={`section`}>
           <div className={`sectionContainer space-y-5 px-[1rem]`}>
@@ -81,7 +81,7 @@ const Homepage = () => {
           </div>
         </section>
 
-        <SectionLine />
+        <SectionLine width="w-[90%]" />
 
         <section className={`section  `}>
           <div className={`sectionContainer pt-[8rem]  `}>
