@@ -13,7 +13,7 @@ const ResearchJournals = () => {
         />
 
         <section className={`section`}>
-          <div className="sectionContainer space-y-6">
+          <div className="sectionContainer px-4 lg:px-0   space-y-6">
             {/* Header and description */}
             <div className="space-y-4">
               <h2 className="text-xl font-bold text-accentone">
@@ -55,7 +55,7 @@ const ResearchJournals = () => {
         </section>
 
         <section className={`pb-[1rem]`}>
-          <div className="sectionContainer space-y-8">
+          <div className="sectionContainer px-4 lg:px-0   space-y-8">
             {/* Section Title */}
             <div>
               <h2 className="text-xl font-bold text-accentone">Life science</h2>
@@ -87,7 +87,7 @@ const ResearchJournals = () => {
         </section>
 
         <section className={`pb-[1rem]`}>
-          <div className="sectionContainer space-y-8">
+          <div className="sectionContainer px-4 lg:px-0   space-y-8">
             {/* Section Title */}
             <div>
               <h2 className="text-xl font-bold text-accentone">
@@ -116,7 +116,7 @@ const ResearchJournals = () => {
         </section>
 
         <section className={`pb-[1rem]`}>
-          <div className="sectionContainer space-y-8">
+          <div className="sectionContainer px-4 lg:px-0   space-y-8">
             {/* Section Title */}
             <div>
               <h2 className="text-xl font-bold text-accentone">
