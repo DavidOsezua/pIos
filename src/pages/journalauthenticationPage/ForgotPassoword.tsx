@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { InputField } from "@/components";
 import AuthenticationLayout from "@/layout/AuthenticationLayout";
+import { NavLink } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const ForgotPassword = () => {
   return (
     <AuthenticationLayout>
       <section className={`section`}>
-        <div className=" sectionContainer mx-auto px-4 py-12 flex flex-col md:flex-row items-center justify-between">
+        <div className=" sectionContainer mx-auto p-4 md:p-0  flex flex-col md:flex-row items-center justify-between">
           <form onSubmit={handleSubmit} className="w-full md:w-1/2 max-w-md">
             <h2 className="text-2xl font-semibold mb-4">
               Forgot your password?
@@ -46,13 +47,19 @@ const ForgotPassword = () => {
             </button>
 
             <div className="mt-6 text-sm">
-              <a href="#" className="text-blue-600 hover:underline mr-2">
+              <NavLink
+                to="/createaccount"
+                className="text-blue-600 hover:underline mr-2"
+              >
                 Register for a New Account
-              </a>
+              </NavLink>
               |
-              <a href="#" className="text-blue-600 hover:underline ml-2">
+              <NavLink
+                to="/signin"
+                className="text-blue-600 hover:underline ml-2"
+              >
                 Sign in
-              </a>
+              </NavLink>
             </div>
           </form>
 
