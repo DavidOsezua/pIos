@@ -8,6 +8,10 @@ import {
   ResearchJournals,
 } from "./pages";
 import "./styles/global.css";
+import CreateAccount from "./pages/journalauthenticationPage/CreateAccount";
+import JournalCategory from "./pages/journalCategoryPages/JournalCategory";
+import ForgotPassword from "./pages/journalauthenticationPage/ForgotPassoword";
+import SignIn from "./pages/journalauthenticationPage/SignIn";
 
 const App = () => {
   return (
@@ -19,6 +23,10 @@ const App = () => {
         <Route path="opensciencepolicy" element={<OpenSciencePolicy />} />
         <Route path="ourmission" element={<OurMission />} />
         <Route path="publicationfee" element={<PublicationFees />} />
+        <Route path="journalcategory" element={<JournalCategory />} />
+        <Route path="createaccount" element={<CreateAccount />} />
+        <Route path="forgotpassword" element={<ForgotPassword />} />
+        <Route path="signin" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
   );

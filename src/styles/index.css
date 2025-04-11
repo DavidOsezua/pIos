@@ -5,6 +5,7 @@
   --radius: 0.625rem;
   --background: #ffffff;
   --accentone: #01156b;
+  --backgroundtwo: #efefef;
 }
 
 @theme inline {
@@ -14,13 +15,14 @@
   --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
   --color-accentone: var(--accentone);
+  --color-backgroundtwo: var(--backgroundtwo);
 }
 
 @layer base {
   * {
   }
   body {
-    @apply bg-background;
+    /* @apply bg-background; */
   }
 }
 
@@ -39,7 +41,6 @@
     background-color: var(--accentone); /* Inherits text color */
     margin-top: 8px;
   }
-
 
   .section {
     padding-top: 3rem;
