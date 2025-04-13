@@ -255,3 +255,34 @@ export const sustainabilityScience = [
     description: `PLOS Water brings together research of the highest methodological standard across water systems as a vital resource for societies in every region of the world. Creating lasting impact, the broad research scope enables critical conversations between researchers and those who fund, govern, and use water. We encourage cross-disciplinary research that transcends silos with a systems-wide approach to enhance collaboration in order to create real global change.`,
   },
 ];
+
+export const sideBarLinks = [
+  {
+    link: "Dashboard",
+    icon: "dashboard", // Replace with icon name or component
+    path: "dashboard",
+    active: false,
+    disabled: false,
+  },
+  {
+    link: "Journals",
+    icon: "journals", // Replace with actual icon
+    path: "journals",
+    active: true,
+    disabled: false,
+  },
+  {
+    link: "Articles",
+    icon: "articles", // Replace with actual icon
+    path: "articles",
+    active: false,
+    disabled: false,
+  },
+  {
+    link: "Categories",
+    icon: "categories", // Replace with actual icon
+    path: "categories",
+    active: false,
+    disabled: true,
+  },
+];

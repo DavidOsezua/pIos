@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className=" section bg-backgroundTwo">
+    <header className=" section bg-backgroundtwo">
       <div className="sectionContainer mx-auto space-y-4 px-4 md:px-0">
         {/* Right: Search and Auth */}
         <div className="mt-2 sm:mt-0 flex items-center justify-end space-x-3 text-sm">
