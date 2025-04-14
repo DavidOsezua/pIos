@@ -1,16 +1,38 @@
 import { InputField } from "@/components";
 import AuthenticationLayout from "@/layout/AuthenticationLayout";
+import { ACCESS_TOKEN } from "@/services/constants";
+import { api } from "@/services/endpoint";
+import axios from "axios";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Sign in:", { email, password });
-    // Add sign-in logic here
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      console.log("Sign in:", { email, password });
+      const response = await api.post("api/auth/login/", { email, password }, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      console.log("access token", response.data?.token)
+      console.log("success message", response.data?.message) // add this to the success card 
+      localStorage.setItem(ACCESS_TOKEN, response.data?.token)
+      console.log(response)
+      navigate("/journalcategory")
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        console.error(e.response?.data?.detail);
+      } else {
+        console.error("An unexpected error occurred", e);
+      }
+    };
   };
 
   return (

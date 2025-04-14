@@ -2,123 +2,68 @@ import AdsSection from "@/components/AdsSection";
 import BlogSection from "@/components/BlogSection";
 import NewContent from "@/components/NewContent";
 import JournalCategoryLayout from "@/layout/JournalCategoryLayout";
+import { api } from "@/services/endpoint";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-interface article {
+
+interface Article {
+  title: string;
+  article_type: string;
+  created_at: string;
+  abstract: string;
+  cover_image: string;
+  journal_title: string;
+  approved: boolean;
+}
+
+
+interface TransformedArticle {
   title: string;
   type: string;
   date: string;
-  img: string;
-  desc: string;
   imgBottom: string;
   imgTop: string;
+  desc: string;
+  img: string;
   credit: string;
 }
 
-const articles: article[] = [
-  {
-    title: "Is beauty beyond the eye of the butterfly?",
-    type: "PRIMER",
-    date: "03/11/2025",
-    desc: "The diversity of bright colors observed across the animal world are often used during mate choice. Richard Merrill explores a new study in PLOS Biology which reveals genetic and neural mechanisms contributing to the evolution of visual mating decisions in Heliconius butterflies.",
-    imgBottom: "",
-    imgTop: "",
-    img: "articleImage.png",
-    credit: "Image credit: pbio.3003008",
-  },
-  {
-    title: "Signals from the niche...",
-    type: "RESEARCH ARTICLE",
-    date: "03/11/2025",
-    img: "articleImage.png",
-    imgTop: "https://via.placeholder.com/70x70?text=1",
-    imgBottom: "https://via.placeholder.com/70x70?text=2",
-    desc: "Transcription is known to tightly regulate gene expression profiles...",
-    credit: "Image credit: pbio.3003049",
-  },
-  {
-    title: "Dipeptide transport",
-    type: "RESEARCH ARTICLE",
-    date: "03/11/2025",
-
-    imgBottom: "",
-    imgTop: "",
-    img: "articleImage.png",
-    desc: "Behavioral and molecular approaches are involved...",
-    credit: "Image credit: pbio.3003030",
-  },
-  {
-    title: "Balancing Id and team interactions during neural development",
-    type: "RESEARCH ARTICLE",
-    date: "03/11/2025",
-    imgBottom: "",
-    imgTop: "",
-    img: "articleImage.png",
-    desc: "The transcription factor DPY-30 promotes the coordination...",
-    credit: "Image credit: pbio.3003056",
-  },
-  {
-    title: "Dynamics of a supergene",
-    type: "SHORT REPORT",
-    date: "02/28/2025",
-    imgBottom: "",
-    imgTop: "",
-    img: "articleImage.png",
-    desc: "Supergenes are clusters of genes suppressing recombination...",
-    credit: "Image credit: pbio.3003060",
-  },
-  {
-    title: "Evolutionary origin of bifurcated joints",
-    type: "PRIMER",
-    date: "02/26/2025",
-    imgBottom: "",
-    imgTop: "",
-    img: "articleImage.png",
-    desc: "The evolutionary origin of bifurcated joints has clear...",
-    credit: "Image credit: pbio.3003062",
-  },
-  {
-    title: "New solutions for antibiotics",
-    type: "PERSPECTIVE",
-    date: "02/25/2025",
-    imgBottom: "",
-    imgTop: "",
-    img: "articleImage.png",
-    desc: "CRISPR tools for fast re-screening of resistance elements...",
-    credit: "Image credit: pbio.3003065",
-  },
-  {
-    title: "Sensory gliders",
-    type: "ESSAY",
-    date: "02/24/2025",
-    imgBottom: "",
-    imgTop: "",
-    desc: "The diversity of bright colors observed across the animal world are often used during mate choice. Richard Merrill explores a new study in PLOS Biology which reveals genetic and neural mechanisms contributing to the evolution of visual mating decisions in Heliconius butterflies.",
-    img: "articleImage.png",
-    credit: "Image credit: pbio.3003064",
-  },
-  {
-    title: "PLOS statement on current US policies",
-    type: "BLOG POST",
-    date: "02/20/2025",
-    imgBottom: "",
-    imgTop: "",
-    desc: "The diversity of bright colors observed across the animal world are often used during mate choice. Richard Merrill explores a new study in PLOS Biology which reveals genetic and neural mechanisms contributing to the evolution of visual mating decisions in Heliconius butterflies.",
-    img: "articleImage.png",
-    credit: "Image credit: PLOS",
-  },
-  {
-    title: "CRISPR for the win!",
-    type: "COMMUNITY PAGE",
-    date: "02/18/2025",
-    imgBottom: "",
-    imgTop: "",
-    desc: "The diversity of bright colors observed across the animal world are often used during mate choice. Richard Merrill explores a new study in PLOS Biology which reveals genetic and neural mechanisms contributing to the evolution of visual mating decisions in Heliconius butterflies.",
-    img: "articleImage.png",
-    credit: "Image credit: pbio.3003063",
-  },
-];
 
 const JournalCategory = (props: Props) => {
+  const [articles, setArticles] = useState<TransformedArticle[]>([]);
+
+  const fetchArticlesData = async () => {
+    try {
+      const response = await api.get("api/v2/articles/");
+      console.log(response.data);
+      const ApprovedArticles = (response.data as Article[]).filter(article => article.approved);
+      const transformedData: TransformedArticle[] = ApprovedArticles.map((article: Article) => ({
+        title: article.title,
+        type: article.article_type.toUpperCase(),
+        date: new Date(article.created_at).toLocaleDateString("en-US"),
+        imgBottom: "",
+        imgTop: "",
+        desc: article.abstract,
+        img: article.cover_image,
+        credit: `Image credit: ${article.journal_title}`,
+      }));
+
+      setArticles(transformedData);
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        console.error(e.response?.data?.detail);
+      } else {
+        console.error("An unexpected error occurred", e);
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchArticlesData();
+  }, []);
+
+
   return (
     <JournalCategoryLayout>
       <section className={`section w-full bg-backgroundtwo`}>

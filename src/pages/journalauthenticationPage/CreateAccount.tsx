@@ -1,7 +1,10 @@
 import { InputField } from "@/components";
 import AuthenticationLayout from "@/layout/AuthenticationLayout";
+import { ACCESS_TOKEN } from "@/services/constants";
+import { api } from "@/services/endpoint";
+import axios from "axios";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
   const [form, setForm] = useState({
@@ -12,6 +15,7 @@ const CreateAccount = () => {
     confirmPassword: "",
     agreed: false,
   });
+  const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -21,11 +25,36 @@ const CreateAccount = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", form);
-  };
+    try {
+      const FilterForm = {
+        email: form.email,
+        first_name: form.firstName,
+        last_name: form.lastName,
+        password: form.password,
+        confirm_password: form.confirmPassword,
 
+      }
+      console.log("Form submitted:", FilterForm);
+      const response = await api.post("api/auth/register/", FilterForm, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      console.log("access token", response.data?.token)
+      console.log("success message", response.data?.message) // add this to the success card 
+      localStorage.setItem(ACCESS_TOKEN, response.data?.token)
+      console.log(response)
+      navigate("/signin")
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        console.error(e.response?.data?.detail);
+      } else {
+        console.error("An unexpected error occurred", e);
+      }
+    };
+  }
   return (
     <AuthenticationLayout>
       <section className={`section`}>
@@ -84,6 +113,7 @@ const CreateAccount = () => {
                 checked={form.agreed}
                 onChange={handleChange}
                 className="mt-1"
+                required
               />
               <label htmlFor="agreed" className="text-sm text-gray-600">
                 I have read and agree to the terms of the{" "}
