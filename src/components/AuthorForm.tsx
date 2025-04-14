@@ -1,31 +1,32 @@
-import React, { useState } from "react";
+import { Author } from "@/pages/journalCategoryPages/Publish";
 
-type Props = {
-  onBack: () => void;
+type AuthorsProps = {
+  authors: Author[];
+  updateAuthor: (index: number, field: keyof Author, value: string) => void;
+  addAuthor: () => void;
   onNext: () => void;
-  //   onSubmit: (file: File | null) => void;
+  onBack: () => void;
 };
 
-const AuthorForm = ({ onBack, onNext }: Props) => {
-  const [authors, setAuthors] = useState([
-    { title: "", lastName: "", otherName: "", email: "" },
-  ]);
-
-  const addAuthor = () => {
-    setAuthors([
-      ...authors,
-      { title: "", lastName: "", otherName: "", email: "" },
-    ]);
-  };
-
+const AuthorForm = ({
+  onNext,
+  onBack,
+  authors,
+  updateAuthor,
+  addAuthor,
+}: AuthorsProps) => {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">The Authors</h2>
-      {authors.map((_, index) => (
+      {authors.map((author, index) => (
         <div key={index} className="mb-6">
           <h3 className="font-semibold mb-2">Author {index + 1}</h3>
           <div className="grid grid-cols-3 gap-4 mb-2">
-            <select className="border p-2 rounded">
+            <select
+              className="border p-2 rounded"
+              value={author.title}
+              onChange={(e) => updateAuthor(index, "title", e.target.value)}
+            >
               <option>Mr</option>
               <option>Ms</option>
               <option>Dr</option>
@@ -34,17 +35,23 @@ const AuthorForm = ({ onBack, onNext }: Props) => {
               type="text"
               placeholder="Last Name"
               className="border p-2 rounded"
+              value={author.lastName}
+              onChange={(e) => updateAuthor(index, "lastName", e.target.value)}
             />
             <input
               type="text"
               placeholder="Other Name"
               className="border p-2 rounded"
+              value={author.otherName}
+              onChange={(e) => updateAuthor(index, "otherName", e.target.value)}
             />
           </div>
           <input
             type="email"
             placeholder="Email Address"
             className="border w-full p-2 rounded"
+            value={author.email}
+            onChange={(e) => updateAuthor(index, "email", e.target.value)}
           />
         </div>
       ))}
@@ -65,5 +72,4 @@ const AuthorForm = ({ onBack, onNext }: Props) => {
     </div>
   );
 };
-
 export default AuthorForm;

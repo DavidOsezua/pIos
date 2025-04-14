@@ -1,11 +1,25 @@
+import React, { useState, ChangeEvent } from "react";
 import AbstractFrom from "@/components/AbstractFrom";
 import ArticleForm from "@/components/ArticleForm";
 import AuthorForm from "@/components/AuthorForm";
 import Upload from "@/components/Upload";
 import JournalCategoryLayout from "@/layout/JournalCategoryLayout";
-import React, { useState } from "react";
 
-type Props = {};
+export type Author = {
+  title: string;
+  lastName: string;
+  otherName: string;
+  email: string;
+};
+
+export type FormData = {
+  title: string;
+  type: string;
+  cover: File | null;
+  abstract: string;
+  authors: Author[];
+  articleFile: File | null;
+};
 
 const StepTabs = [
   "Article Information",
@@ -14,8 +28,45 @@ const StepTabs = [
   "Upload Article",
 ];
 
-const Publish = (props: Props) => {
-  const [step, setStep] = useState(0);
+const Publish = () => {
+  const [step, setStep] = useState<number>(0);
+  const [formData, setFormData] = useState<FormData>({
+    title: "",
+    type: "",
+    cover: null,
+    abstract: "",
+    authors: [{ title: "Mr", lastName: "", otherName: "", email: "" }],
+    articleFile: null,
+  });
+
+  const updateField = (field: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const updateAuthor = (index: number, field: keyof Author, value: string) => {
+    const updatedAuthors = [...formData.authors];
+    updatedAuthors[index][field] = value;
+    setFormData((prev) => ({ ...prev, authors: updatedAuthors }));
+  };
+
+  const addAuthor = () => {
+    setFormData((prev) => ({
+      ...prev,
+      authors: [
+        ...prev.authors,
+        { title: "Mr", lastName: "", otherName: "", email: "" },
+      ],
+    }));
+  };
+
+  const handleFileChange = (field: keyof FormData, file: File | null) => {
+    setFormData((prev) => ({ ...prev, [field]: file }));
+  };
+
+  const handleSubmit = () => {
+    console.log("Submitted data:", formData);
+    // submission logic here
+  };
 
   const next = () => setStep((s) => Math.min(s + 1, StepTabs.length - 1));
   const back = () => setStep((s) => Math.max(s - 1, 0));
@@ -40,10 +91,39 @@ const Publish = (props: Props) => {
             ))}
           </div>
 
-          {step === 0 && <ArticleForm onNext={next} />}
-          {step === 1 && <AbstractFrom onNext={next} onBack={back} />}
-          {step === 2 && <AuthorForm onNext={next} onBack={back} />}
-          {step === 3 && <Upload onBack={back} />}
+          {step === 0 && (
+            <ArticleForm
+              onNext={next}
+              data={formData}
+              updateField={updateField}
+              handleFileChange={handleFileChange}
+            />
+          )}
+          {step === 1 && (
+            <AbstractFrom
+              onNext={next}
+              onBack={back}
+              data={formData}
+              updateField={updateField}
+            />
+          )}
+          {step === 2 && (
+            <AuthorForm
+              onNext={next}
+              onBack={back}
+              authors={formData.authors}
+              updateAuthor={updateAuthor}
+              addAuthor={addAuthor}
+            />
+          )}
+          {step === 3 && (
+            <Upload
+              onBack={back}
+              data={formData}
+              handleFileChange={handleFileChange}
+              handleSubmit={handleSubmit}
+            />
+          )}
         </div>
       </section>
     </JournalCategoryLayout>
