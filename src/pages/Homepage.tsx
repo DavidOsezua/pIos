@@ -72,8 +72,8 @@ const Homepage = () => {
             <div
               className={`space-y-5 md:flex md:items-center md:justify-between md:gap-6`}
             >
-              {homePageOpenScience.map((data) => (
-                <div className={`space-y-3`}>
+              {homePageOpenScience.map((data, i) => (
+                <div className={`space-y-3`} key={i}>
                   <h2
                     className={`font-bold text-accentone text-[1.5rem]  border-b-[6px] pb-[0.6rem] border-b-[#F03F10]`}
                   >
@@ -97,8 +97,8 @@ const Homepage = () => {
               <ul
                 className={`bg-accentone max-w-[340px] w-full mb-[-4rem] relative z-10 mx-auto  text-white p-12 md:mr-[-10rem] md:h-[240px] md:mt-[4rem]  `}
               >
-                {navLinks.map((item) => (
-                  <li>
+                {navLinks.map((item, i) => (
+                  <li key={i}>
                     <NavLink to={item.path}>{item.link}</NavLink>
                   </li>
                 ))}

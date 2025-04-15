@@ -108,8 +108,8 @@ const Navbar = () => {
             </p>
           </div>
 
-          {expandedLinks.map((title) => (
-            <ul className={`space-y-3 pb-6 `}>
+          {expandedLinks.map((title, i) => (
+            <ul className={`space-y-3 pb-6 `} key={i}>
               <span
                 className={`pb-0.5 inline-block  border-b-2 border-accentone `}
               >
@@ -117,9 +117,9 @@ const Navbar = () => {
               </span>
 
               {title.links.map((link) => (
-                <NavLink to="/ournalcategory" className={``}>
-                  {link}
-                </NavLink>
+                <li className={``}>
+                  <NavLink to="/journalcategory">{link}</NavLink>
+                </li>
               ))}
             </ul>
           ))}
