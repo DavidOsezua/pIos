@@ -1,8 +1,4 @@
-import React from "react";
-
-type Props = {};
-
-const NewContent = (props: Props) => {
+const NewContent = () => {
   return (
     <div className="w-full bg-white rounded-2l shadow-lg p-6 ">
       <h2 className="text-lg font-semibold mb-4 text-gray-800">

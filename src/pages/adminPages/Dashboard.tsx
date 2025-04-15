@@ -1,8 +1,4 @@
-import React from "react";
-
-type Props = {};
-
-const Dashboard = (props: Props) => {
+const Dashboard = () => {
   return (
     <section className={`section bg-[#f6f8fd] h-full`}>
       <div className={`sectionContainer`}>Dashboard</div>

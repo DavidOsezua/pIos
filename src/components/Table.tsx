@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
@@ -8,9 +8,7 @@ const Table = ({ children }: Props) => {
   return (
     <table>
       <thead>
-        <tr>
-                
-        </tr>
+        <tr></tr>
       </thead>
 
       <tbody>{children}</tbody>

@@ -7,12 +7,7 @@ type UploadProps = {
   onBack: () => void;
 };
 
-const Upload = ({
-  onBack,
-  handleFileChange,
-  handleSubmit,
-  data,
-}: UploadProps) => {
+const Upload = ({ onBack, handleFileChange, handleSubmit }: UploadProps) => {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">Article file Upload</h2>

@@ -4,9 +4,7 @@ import NewContent from "@/components/NewContent";
 import JournalCategoryLayout from "@/layout/JournalCategoryLayout";
 import { NavLink } from "react-router-dom";
 
-type Props = {};
-
-const Profile = (props: Props) => {
+const Profile = () => {
   return (
     <div>
       <JournalCategoryLayout>
@@ -52,7 +50,7 @@ const Profile = (props: Props) => {
             </div>
 
             <div className={`grid grid-cols-2 gap-4`}>
-              {Array.from({ length: 12 }).map((item) => (
+              {Array.from({ length: 12 }).map(() => (
                 <ArticleCard />
               ))}
             </div>

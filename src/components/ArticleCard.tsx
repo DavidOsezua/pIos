@@ -1,6 +1,4 @@
-type Props = {};
-
-const ArticleCard = (props: Props) => {
+const ArticleCard = () => {
   return (
     <div className="h-[250px] bg-white border border-gray-200 rounded-md shadow-sm p-4">
       <div className="flex">

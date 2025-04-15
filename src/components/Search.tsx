@@ -1,9 +1,7 @@
 import styles from "./Search.module.css";
 import SearchIcon from "./svgComponent/SearchIcon";
 
-type Props = {};
-
-const Search = (props: Props) => {
+const Search = () => {
   return (
     <div className={`${styles.secondColumn}`}>
       {/* {pageType === "bands" || pageType === "venue" ? (

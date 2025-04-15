@@ -1,8 +1,6 @@
 import styles from "./Filter.module.css";
 
-type Props = {};
-
-const Filter = (props: Props) => {
+const Filter = () => {
   return (
     <div className={`${styles.filteredButton}`}>
       {/* {data.status.map((item) => (

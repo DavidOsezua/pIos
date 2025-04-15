@@ -6,7 +6,6 @@ import { api } from "@/services/endpoint";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-
 interface Article {
   title: string;
   article_type: string;
@@ -16,7 +15,6 @@ interface Article {
   journal_title: string;
   approved: boolean;
 }
-
 
 interface TransformedArticle {
   title: string;
@@ -29,25 +27,28 @@ interface TransformedArticle {
   credit: string;
 }
 
-
-const JournalCategory = (props: Props) => {
+const JournalCategory = () => {
   const [articles, setArticles] = useState<TransformedArticle[]>([]);
 
   const fetchArticlesData = async () => {
     try {
       const response = await api.get("api/v2/articles/");
       console.log(response.data);
-      const ApprovedArticles = (response.data as Article[]).filter(article => article.approved);
-      const transformedData: TransformedArticle[] = ApprovedArticles.map((article: Article) => ({
-        title: article.title,
-        type: article.article_type.toUpperCase(),
-        date: new Date(article.created_at).toLocaleDateString("en-US"),
-        imgBottom: "",
-        imgTop: "",
-        desc: article.abstract,
-        img: article.cover_image,
-        credit: `Image credit: ${article.journal_title}`,
-      }));
+      const ApprovedArticles = (response.data as Article[]).filter(
+        (article) => article.approved
+      );
+      const transformedData: TransformedArticle[] = ApprovedArticles.map(
+        (article: Article) => ({
+          title: article.title,
+          type: article.article_type.toUpperCase(),
+          date: new Date(article.created_at).toLocaleDateString("en-US"),
+          imgBottom: "",
+          imgTop: "",
+          desc: article.abstract,
+          img: article.cover_image,
+          credit: `Image credit: ${article.journal_title}`,
+        })
+      );
 
       setArticles(transformedData);
     } catch (e) {
@@ -57,12 +58,11 @@ const JournalCategory = (props: Props) => {
         console.error("An unexpected error occurred", e);
       }
     }
-  }
+  };
 
   useEffect(() => {
     fetchArticlesData();
   }, []);
-
 
   return (
     <JournalCategoryLayout>
