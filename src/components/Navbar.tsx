@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom";
 import { Search } from "./svgComponent/Search";
 import { expandedLinks, navLinks } from "@/data/data";
 
-
-
 const Navbar = () => {
   const [expand, setExpand] = useState(false);
 
@@ -119,7 +117,9 @@ const Navbar = () => {
               </span>
 
               {title.links.map((link) => (
-                <li className={``}>{link}</li>
+                <NavLink to="/ournalcategory" className={``}>
+                  {link}
+                </NavLink>
               ))}
             </ul>
           ))}
