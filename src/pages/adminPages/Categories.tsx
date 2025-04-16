@@ -1,10 +1,10 @@
-import TitleAndStatus from "@/components/TitleAndStatus";
+import CategoryDashboard from "@/features/CategoryFeatures/CategoryDashboard";
 
 const Categories = () => {
   return (
     <section className={`section bg-[#f6f8fd] h-full`}>
       <div className={`sectionContainer`}>
-        <TitleAndStatus />
+        <CategoryDashboard />
       </div>
     </section>
   );

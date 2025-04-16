@@ -5,3 +5,5 @@ export { default as Button } from "./Button";
 export { default as JournalCategoryNavbar } from "./JournalCategoryNavbar";
 export { default as InputField } from "./InputField";
 export { default as AuthenticationNavbar } from "./AuthenticationNavbar";
+export { default as Filter } from "./Filter";
+export { default as Search } from "./Search";
