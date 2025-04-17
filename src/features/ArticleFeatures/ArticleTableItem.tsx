@@ -1,7 +1,6 @@
 import { Edit } from "@/components/svgComponent/Edit";
 import { Article } from "./ArticleDashboard";
 import styles from "../../components/Table.module.css";
-import { View } from "@/components/svgComponent/View";
 import { Delete } from "@/components/svgComponent/Delete";
 import { Download } from "@/components/svgComponent/Download";
 
