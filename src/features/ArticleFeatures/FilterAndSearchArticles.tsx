@@ -1,11 +1,18 @@
 import { Filter, Search } from "@/components";
 
-type Props = {};
+type Props = {
+  active: string;
+  handleFilter: (item: string) => void;
+};
 
-const FilterAndSearchArticles = (props: Props) => {
+const FilterAndSearchArticles = ({ active, handleFilter }: Props) => {
   return (
     <div className={`flex justify-between items-center`}>
-      <Filter />
+      <Filter
+        status={["All", "Approved", "Pending", "Inactive"]}
+        handleFilter={handleFilter}
+        active={active}
+      />
       <Search />
     </div>
   );

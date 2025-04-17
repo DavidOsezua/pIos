@@ -3,13 +3,13 @@ import CreateJournalsAndShowStatus from "./CreateJournalsAndShowStatus";
 import FilterAndSearchJournals from "./FilterAndSearchJournals";
 import JournalTable from "./JournalTable";
 
-interface Journal {
+export interface Journal {
   id: number;
   category: string;
   title: string;
   dateUploaded: string;
   articles: number;
-  status: "Approved" | "Pending" | "Inactive";
+  status: string;
 }
 
 const mockJournals: Journal[] = Array.from({ length: 45 }).map((_, i) => ({
@@ -32,34 +32,73 @@ const JournalDashBoard = () => {
   const filteredData = data.filter((item) => {
     const matchesStatus =
       statusFilteredData === "All" || item.status === statusFilteredData;
-
     return matchesStatus;
   });
 
   //paginate the data
-  const indexOfFirstItem = currentPage - itemsPerPage;
+  const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
   const indexOfLastItem = currentPage * itemsPerPage;
 
   const paginateData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   //Handlers
-  const handleStatusChange = () => {};
+  const handleFilter = (status: string) => {
+    setStatusFilteredData(status);
+  };
 
-  const next = () => {};
+  const handleStatusChange = (id: number, newStatus: string) => {
+    setData((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, status: newStatus } : item
+      )
+    );
+  };
 
-  const nextTwice = () => {};
+  // Next and Double Next buttons
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
 
-  const back = () => {};
+  const handleDoubleNext = () => {
+    if (currentPage + 2 <= totalPages) setCurrentPage(currentPage + 2);
+    else setCurrentPage(totalPages);
+  };
 
-  const backTwice = () => {};
+  // Previous and Double Previous buttons
+  const handlePrevious = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleDoublePrevious = () => {
+    if (currentPage - 2 >= 1) setCurrentPage(currentPage - 2);
+    else setCurrentPage(1);
+  };
 
   return (
     <div className={`space-y-10`}>
-      <CreateJournalsAndShowStatus />
+      <CreateJournalsAndShowStatus
+        approved={data.filter((item) => item.status === "Approved").length}
+        total={data.filter((item) => item.status).length}
+        pending={data.filter((item) => item.status === "Pending").length}
+        inactive={data.filter((item) => item.status === "Inactive").length}
+      />
 
-      <FilterAndSearchJournals />
+      <FilterAndSearchJournals
+        active={statusFilteredData}
+        handleFilter={handleFilter}
+      />
 
-      <JournalTable />
+      <JournalTable
+        data={paginateData}
+        totalPages={totalPages}
+        currentPage={currentPage}
+        handleDoubleNext={handleDoubleNext}
+        handleDoublePrevious={handleDoublePrevious}
+        handleNext={handleNext}
+        handlePrevious={handlePrevious}
+        handleStatusChange={handleStatusChange}
+      />
     </div>
   );
 };

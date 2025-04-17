@@ -1,9 +1,15 @@
 import styles from "./Filter.module.css";
 
-const Filter = () => {
+type Props = {
+  status: string[];
+  handleFilter: (item: string) => void;
+  active: string;
+};
+
+const Filter = ({ status, handleFilter, active }: Props) => {
   return (
     <div className={`${styles.filteredButton}`}>
-      {/* {data.status.map((item) => (
+      {status.map((item) => (
         <button
           key={item}
           onClick={() => handleFilter(item)}
@@ -11,15 +17,15 @@ const Filter = () => {
         >
           {item}
         </button>
-      ))} */}
+      ))}
 
-      <button onClick={() => {}} className={`${styles.btn} `}>
+      {/* <button onClick={() => {}} className={`${styles.btn} `}>
         Active
       </button>
 
       <button onClick={() => {}} className={`${styles.btn} `}>
         Inactive
-      </button>
+      </button> */}
     </div>
   );
 };

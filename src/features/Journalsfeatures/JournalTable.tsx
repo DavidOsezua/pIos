@@ -1,10 +1,34 @@
+import DoublePrevious from "@/components/svgComponent/DoublePrevious";
 import styles from "../../components/Table.module.css";
+import { Journal } from "./JournalDashBoard";
+import JournalTableItem from "./JournalTableItem";
+import Previous from "@/components/svgComponent/Previous";
+import Next from "@/components/svgComponent/Next";
+import DoubleNext from "@/components/svgComponent/DoubleNext";
 
-type Props = {};
+type Props = {
+  data: Journal[];
+  handleDoublePrevious: () => void;
+  currentPage: number;
+  totalPages: number;
+  handlePrevious: () => void;
+  handleNext: () => void;
+  handleDoubleNext: () => void;
+  handleStatusChange: (id: number, newStatus: string) => void;
+};
 
-const JournalTable = (props: Props) => {
+const JournalTable = ({
+  data,
+  handleDoubleNext,
+  handleNext,
+  handleDoublePrevious,
+  handlePrevious,
+  handleStatusChange,
+  currentPage,
+  totalPages,
+}: Props) => {
   return (
-    <div className="table-responsive">
+    <div className="table-responsive space-y-5">
       <table className={`${styles.tableStyle}`}>
         <thead>
           <tr>
@@ -24,15 +48,42 @@ const JournalTable = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className={`${styles.tdStyle}`}>1</td>
-            <td className={`${styles.tdStyle}`}>PLOS Healthline</td>
-            <td className={`${styles.tdStyle}`}>PLOS Global Public Health</td>
-            <td className={`${styles.tdStyle}`}>Saturday, 19 Aug 2024</td>
-            <td className={`${styles.tdStyle}`}>45</td>
-          </tr>
+          {data.map((item) => (
+            <JournalTableItem
+              dataItem={item}
+              handleStatusChange={handleStatusChange}
+            />
+          ))}
         </tbody>
       </table>
+
+      {/* Pagination controls */}
+      <div className="flex justify-center gap-2">
+        <div>
+          <button onClick={handleDoublePrevious} disabled={currentPage <= 2}>
+            <DoublePrevious />
+          </button>
+          <button onClick={handlePrevious} disabled={currentPage === 1}>
+            <Previous />
+          </button>
+        </div>
+
+        <p>
+          {currentPage} of {totalPages}
+        </p>
+
+        <div>
+          <button onClick={handleNext} disabled={currentPage === totalPages}>
+            <Next />
+          </button>
+          <button
+            onClick={handleDoubleNext}
+            disabled={currentPage >= totalPages - 1}
+          >
+            <DoubleNext />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
