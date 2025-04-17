@@ -5,6 +5,7 @@ import ArticleTableItem from "./ArticleTableItem";
 import Previous from "@/components/svgComponent/Previous";
 import Next from "@/components/svgComponent/Next";
 import DoubleNext from "@/components/svgComponent/DoubleNext";
+import Pagination from "@/components/Pagination";
 
 type Props = {
   data: Article[];
@@ -58,32 +59,14 @@ const ArticleTable = ({
       </table>
 
       {/* Pagination controls */}
-      <div className="flex justify-center gap-2">
-        <div>
-          <button onClick={handleDoublePrevious} disabled={currentPage <= 2}>
-            <DoublePrevious />
-          </button>
-          <button onClick={handlePrevious} disabled={currentPage === 1}>
-            <Previous />
-          </button>
-        </div>
-
-        <p>
-          {currentPage} of {totalPages}
-        </p>
-
-        <div>
-          <button onClick={handleNext} disabled={currentPage === totalPages}>
-            <Next />
-          </button>
-          <button
-            onClick={handleDoubleNext}
-            disabled={currentPage >= totalPages - 1}
-          >
-            <DoubleNext />
-          </button>
-        </div>
-      </div>
+      <Pagination
+        handleDoubleNext={handleDoubleNext}
+        handleDoublePrevious={handleDoublePrevious}
+        handleNext={handleNext}
+        handlePrevious={handlePrevious}
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
     </div>
   );
 };

@@ -75,7 +75,11 @@ const CategoryDashboard = (props: Props) => {
   };
   return (
     <div className={`space-y-10`}>
-      <CreateCategoryAndShowStatus />
+      <CreateCategoryAndShowStatus
+        active={data.filter((item) => item.status === "Active").length}
+        total={data.filter((item) => item.status).length}
+        inactive={data.filter((item) => item.status === "Inactive").length}
+      />
 
       <FilterAndSearchCategory
         active={statusFilteredData}
