@@ -8,6 +8,9 @@ type Props = {
 };
 
 const Modal = ({ children, modalHandler }: Props) => {
+  const portalRoot = document.getElementById("portal");
+  if (!portalRoot) return null;
+
   // const { modal, modalHandler } = useModal() || {};
   return ReactDOM.createPortal(
     <>
@@ -23,7 +26,7 @@ const Modal = ({ children, modalHandler }: Props) => {
         </div>
       </>
     </>,
-    document.getElementById("portal")
+    portalRoot
   );
 };
 

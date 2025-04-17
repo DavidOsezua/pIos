@@ -20,7 +20,7 @@ const mockCategories: Category[] = Array.from({ length: 12 }).map((_, i) => ({
   status: ["Active", "Inactive"][i % 3 === 0 ? 1 : 0],
 }));
 
-const CategoryDashboard = (props: Props) => {
+const CategoryDashboard = () => {
   //States and Variables
   const [data, setData] = useState(mockCategories);
   const [statusFilteredData, setStatusFilteredData] = useState("All");

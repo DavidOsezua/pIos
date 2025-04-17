@@ -1,4 +1,3 @@
-import { Journal } from "@/features/Journalsfeatures/JournalDashBoard";
 import Plus from "./svgComponent/plus";
 import styles from "./TitleAndStatus.module.css";
 
@@ -12,7 +11,6 @@ type Props = {
 };
 
 const CreateAndStatusCard = ({
-  btnText,
   clickFn,
   total,
   approved,

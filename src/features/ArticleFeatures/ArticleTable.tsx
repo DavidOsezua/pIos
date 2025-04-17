@@ -1,10 +1,6 @@
-import DoublePrevious from "@/components/svgComponent/DoublePrevious";
 import styles from "../../components/Table.module.css";
 import { Article } from "./ArticleDashboard";
 import ArticleTableItem from "./ArticleTableItem";
-import Previous from "@/components/svgComponent/Previous";
-import Next from "@/components/svgComponent/Next";
-import DoubleNext from "@/components/svgComponent/DoubleNext";
 import Pagination from "@/components/Pagination";
 
 type Props = {

@@ -3,7 +3,6 @@ import styles from "../../components/Form.module.css";
 import { UploadIcon, X } from "lucide-react";
 import { Button } from "@/components";
 import { useState } from "react";
-import Upload from "@/components/Upload";
 import Modal from "@/components/Modal";
 import SelectCategory from "./SelectCategory";
 
@@ -12,7 +11,7 @@ type Props = {
 };
 
 const JournalsForm = ({ closeForm }: Props) => {
-  const [image, setImage] = useState(null);
+  // const [image, setImage] = useState(null);
   const [activeDropdown, setActiveDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -149,18 +148,19 @@ const JournalsForm = ({ closeForm }: Props) => {
           </div>
           <div className={`${styles.inputContainer}`}>
             <div className={`${styles.upload}`}>
-              {image ? (
+              {/* {image ? (
                 <img
                   src={image}
                   className={`w-[100%] h-[70px] rounded-md  object-cover mx-auto`}
                 />
               ) : (
-                <div className={styles.uploadContainer}>
-                  <UploadIcon />
-                  <p className={styles.uploadText}>Upload Cover</p>
-                </div>
-              )}
+                
+              )} */}
 
+              <div className={styles.uploadContainer}>
+                <UploadIcon />
+                <p className={styles.uploadText}>Upload Cover</p>
+              </div>
               <input
                 type="file"
                 className={styles.uploadBox}

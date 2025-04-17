@@ -1,8 +1,4 @@
-
-
-type Props = {};
-
-const PreviewJournals = (props: Props) => {
+const PreviewJournals = () => {
   return <div>PreviewJournals</div>;
 };
 

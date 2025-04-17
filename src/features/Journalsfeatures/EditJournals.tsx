@@ -1,8 +1,4 @@
-
-
-type Props = {};
-
-const EditJournals = (props: Props) => {
+const EditJournals = () => {
   return <div>EditJournals</div>;
 };
 
