@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./SuccessFailedCard.module.css";
 import { X } from "lucide-react";
 import { NavLink } from "react-router-dom";

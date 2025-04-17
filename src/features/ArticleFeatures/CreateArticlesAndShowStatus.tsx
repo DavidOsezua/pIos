@@ -2,6 +2,7 @@ import CreateAndStatusCard from "@/components/CreateAndStatusCard";
 import styles from "../../components/TitleAndStatus.module.css";
 import { useState } from "react";
 import Modal from "@/components/Modal";
+import ArticleForm from "./ArticleForm";
 
 type Props = {
   total: number;
@@ -37,7 +38,7 @@ const CreateArticlesAndShowStatus = ({
 
       {openModal && (
         <Modal modalHandler={modalHandler}>
-          <div>Checking</div>
+          <ArticleForm />
         </Modal>
       )}
     </div>
