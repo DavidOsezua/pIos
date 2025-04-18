@@ -1,3 +1,4 @@
+import ArrowDown from "@/components/svgComponent/ArrowDown";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,7 +9,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import styles from "../../components/Form.module.css";
 import { useState } from "react";
+import Modal from "@/components/Modal";
+import SelectJournal from "./SelectJournal";
+import SelectType from "./selectType";
 
 interface Author {
   title: string;
@@ -39,6 +44,21 @@ const ArticleForm = () => {
     abstract: "",
     cover: null,
   });
+
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  const toggleDropdown = (dropdownType: string) => {
+    setActiveDropdown((prev) => (prev === dropdownType ? null : dropdownType));
+  };
+
+  const modalHandler = () => {
+    setActiveDropdown(null);
+  };
+
+  const closeDropdown = () => {
+    setActiveDropdown(null);
+    modalHandler();
+  };
 
   const handleAuthorChange = (
     index: number,
@@ -75,29 +95,66 @@ const ArticleForm = () => {
               value={article.title}
               onChange={(e) => handleArticleChange("title", e.target.value)}
             />
-            <div className="grid grid-cols-2 gap-4">
-              <Select
-                onValueChange={(value) => handleArticleChange("journal", value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Journal" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="journal1">Journal 1</SelectItem>
-                  <SelectItem value="journal2">Journal 2</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select
-                onValueChange={(value) => handleArticleChange("type", value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="research">Research</SelectItem>
-                  <SelectItem value="review">Review</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className={`${styles.inputContainer}`}>
+              <div className="w-full">
+                <label>Select Journal</label>
+
+                <div className="relative">
+                  <input
+                    value=""
+                    placeholder="Select venue type"
+                    className={`${styles.input}`}
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-4 top-4"
+                    onClick={() => toggleDropdown("venue")}
+                  >
+                    <ArrowDown />
+                  </button>
+
+                  {activeDropdown === "venue" && (
+                    <Modal modalHandler={modalHandler}>
+                      <SelectJournal
+                        close={closeDropdown}
+                        // onVenueSelection={handleVenueSelect}
+                      />
+                    </Modal>
+                  )}
+                </div>
+              </div>
+
+              {/* GENRE INPUT */}
+
+              <div className="w-full">
+                <label>Select Types</label>
+
+                <div className="relative">
+                  <input
+                    // value={formData.band?.name}
+                    placeholder="Select Band"
+                    className={`${styles.input}`}
+                    readOnly
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-4 top-4"
+                    onClick={() => toggleDropdown("Band")}
+                  >
+                    <ArrowDown />
+                  </button>
+
+                  {/* BAND DropDown  */}
+                  {activeDropdown === "Band" && (
+                    <Modal modalHandler={modalHandler}>
+                      <SelectType
+                        close={closeDropdown}
+                        // onBandSelection={handleBandSelect}
+                      />
+                    </Modal>
+                  )}
+                </div>
+              </div>
             </div>
             <textarea
               className="w-full border rounded p-2"
