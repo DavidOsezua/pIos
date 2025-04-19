@@ -4,12 +4,14 @@ import styles from "../../components/TitleAndStatus.module.css";
 import CreateAndStatusCard from "@/components/CreateAndStatusCard";
 import JournalsForm from "./JournalsForm";
 import Modal from "@/components/Modal";
+import { Journal } from "@/interface";
 
 type Props = {
   total: number;
   approved: number;
   pending: number;
   inactive: number;
+  setData: React.Dispatch<React.SetStateAction<Journal[]>>
 };
 
 const CreateJournalsAndShowStatus = ({
@@ -17,6 +19,7 @@ const CreateJournalsAndShowStatus = ({
   approved,
   pending,
   inactive,
+  setData
 }: Props) => {
   const [openModal, setOpenModal] = useState(false);
 
@@ -36,11 +39,12 @@ const CreateJournalsAndShowStatus = ({
           approved={approved}
           pending={pending}
           inactive={inactive}
+          
         />
       </div>
       {openModal && (
         <Modal modalHandler={modalHandler}>
-          <JournalsForm closeForm={modalHandler} />
+          <JournalsForm closeForm={modalHandler} setData={setData}/>
         </Modal>
       )}
     </>

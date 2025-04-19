@@ -2,18 +2,39 @@ import ArrowDown from "@/components/svgComponent/ArrowDown";
 import styles from "../../components/Form.module.css";
 import { UploadIcon, X } from "lucide-react";
 import { Button } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import SelectCategory from "./SelectCategory";
+import { api } from "@/services/endpoint";
+import { CategoryInterface, Journal } from "@/interface";
+import { isAxiosError } from "axios";
 
 type Props = {
   closeForm: () => void;
+  setData: React.Dispatch<React.SetStateAction<Journal[]>>
 };
 
-const JournalsForm = ({ closeForm }: Props) => {
-  // const [image, setImage] = useState(null);
+const JournalsForm = ({ closeForm, setData }: Props) => {
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  const [image, setImage] = useState<File | null>(null)
   const [activeDropdown, setActiveDropdown] = useState(false);
+  const [categories, setCategories] = useState<CategoryInterface[]>([])
+  const [selectedCategory, setSelectedCategory] = useState<CategoryInterface | null>(null)
+  const [errorMsg, setErrorMsg] = useState("")
 
+  
+  useEffect(() => {
+    api.get("/admin/category").then((res) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data = res.data.map((category: any) => {
+        return {id: category.id, name: category.name, status: category.isActive ? "Active" : "Inactive", image: category.image}
+      })
+      setCategories(data)
+    })
+  }, [])
+  
+  
   const toggleDropdown = () => {
     setActiveDropdown(true);
   };
@@ -27,11 +48,66 @@ const JournalsForm = ({ closeForm }: Props) => {
     modalHandler();
   };
 
-  //   const formHandler = (e: { target: { files: any[] } }) => {
-  //     const file = e.target.files[0];
+  const handleSubmit = async () => {
+    setErrorMsg("")
+    
+    if(!title){
+      setErrorMsg("title required")
+      return 
+    }
 
-  //     setImage(URL.createObjectURL(file));
-  //   };
+    if(!description){
+      setErrorMsg("description required")
+      return 
+    }
+
+    if(!selectedCategory){
+      setErrorMsg("category required")
+      return 
+    }
+
+    if(!image){
+      setErrorMsg("Please upload cover image")
+      return 
+    }
+
+    const formData = new FormData();
+    
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("category", selectedCategory.id)
+    formData.append("image", image)
+    
+    try{
+      const res = await api.post("/admin/journal", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      
+      setData((data) => [{...res.data, category: res.data.Category, articles: res.data.Articles.length}, ...data])
+      closeForm()
+
+    }catch(error){
+      console.log(error)
+      if(isAxiosError(error)) {  
+        setErrorMsg(error.response?.data.error)
+      } else {
+        setErrorMsg("Unknown error occured");
+      }
+    
+    }
+
+
+
+
+
+  }
+
+
+
+
+
 
   return (
     <div className={`${styles.formContainer} relative`}>
@@ -50,11 +126,11 @@ const JournalsForm = ({ closeForm }: Props) => {
         </div>
 
         <div>
-          <img
+          {/* <img
             src={``}
             onClick={() => {}}
             className="cursor-pointer w-[20px]"
-          />
+          /> */}
         </div>
       </div>
 
@@ -65,10 +141,10 @@ const JournalsForm = ({ closeForm }: Props) => {
             <div className="w-full">
               <label>Title</label>
               <input
-                placeholder="Enter Event Name"
+                placeholder="Enter Journal title"
                 className={`${styles.input}`}
-                value={``}
-                onChange={() => {}}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
           </div>
@@ -79,9 +155,10 @@ const JournalsForm = ({ closeForm }: Props) => {
 
               <div className="relative">
                 <input
-                  value={``}
-                  placeholder="Select venue type"
+                  value={selectedCategory?.name}
+                  placeholder="Select category"
                   className={`${styles.input}`}
+                  
                 />
                 <button
                   type="button"
@@ -94,68 +171,38 @@ const JournalsForm = ({ closeForm }: Props) => {
                 {activeDropdown && (
                   <Modal modalHandler={modalHandler}>
                     <SelectCategory
+                      categories={categories}
+                      setSelectedCategory={setSelectedCategory}
                       close={closeDropdown}
-                      // onVenueSelection={handleVenueSelect}
+                      
                     />
                   </Modal>
                 )}
               </div>
             </div>
-
-            {/* GENRE INPUT */}
-
-            {/* <div className="w-full">
-              <label>Select Band</label>
-
-              <div className="relative">
-                <input
-                  value={``}
-                  placeholder="Select Band"
-                  className={`${styles.input}`}
-                  readOnly
-                />
-                <button
-                  type="button"
-                  className="absolute right-4 top-4"
-                  // onClick={() => toggleDropdown("Band")}
-                >
-                  <ArrowDown />
-                </button>
-
-                
-                {activeDropdown === "Band" && (
-                    <Modal modalHandler={modalHandler}>
-                      <SelectBand
-                        close={closeDropdown}
-                        onBandSelection={handleBandSelect}
-                      />
-                    </Modal>
-                  )}
-              </div>
-            </div> */}
           </div>
 
           <div className={`${styles.inputContainer}`}>
             <div className="w-full">
               <label>Description</label>
               <textarea
-                name=""
-                id=""
+                name="description"
+                id="description"
                 className={`${styles.textArea}`}
                 placeholder="Enter journal description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               ></textarea>
             </div>
           </div>
           <div className={`${styles.inputContainer}`}>
             <div className={`${styles.upload}`}>
-              {/* {image ? (
+              {image && (
                 <img
-                  src={image}
-                  className={`w-[100%] h-[70px] rounded-md  object-cover mx-auto`}
-                />
-              ) : (
-                
-              )} */}
+                src={URL.createObjectURL(image)}
+                className={`w-[100%] h-[70px] rounded-md  object-cover mx-auto`}
+              />)
+            }
 
               <div className={styles.uploadContainer}>
                 <UploadIcon />
@@ -164,17 +211,26 @@ const JournalsForm = ({ closeForm }: Props) => {
               <input
                 type="file"
                 className={styles.uploadBox}
-                // onChange={formHandler}
+                onChange={(ev) => {
+                const files = ev.target.files
+                if(files){
+                    setImage(files.item(0))
+                }
+                
+              }}
                 required
               />
             </div>
           </div>
 
-          <Button className="bg-[#0523A2] text-white w-full">
+          <Button className="bg-[#0523A2] text-white w-full" onClick={handleSubmit}>
             Create Journal
           </Button>
         </div>
+        {errorMsg && <div className="w-full text-center text-red-500">{errorMsg}</div>}
+      
       </form>
+      
     </div>
   );
 };

@@ -1,7 +1,14 @@
+import {  BASEURL } from "@/services/endpoint";
+
 import { NavLink } from "react-router-dom";
 
-const Header = () => {
-  return (
+const Header = ({journalInfo}: {journalInfo?: {
+    image: string | null;
+    name: string | null;
+}}) => {
+  
+  
+ return (
     <header className=" section bg-backgroundtwo">
       <div className="sectionContainer mx-auto space-y-4 px-4 md:px-0">
         {/* Right: Search and Auth */}
@@ -28,9 +35,10 @@ const Header = () => {
         {/* Middle: Navigation */}
         <nav className=" flex justify-between text-sm text-gray-800">
           <div className="flex items-center space-x-2">
-            <img src="logo.png" alt="PLOS" />
+            <img src={`${BASEURL}${journalInfo?.image}`} alt="PLOS" width={50} className="rounded-lg"/>
             <span className="text-[0.9rem] font-semibold text-accentone">
-              Biology
+              
+              {journalInfo?.name}
             </span>
           </div>
 

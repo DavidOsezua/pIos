@@ -1,5 +1,6 @@
+import { Article } from "@/interface";
 import styles from "../../components/Table.module.css";
-import { Article } from "./ArticleDashboard";
+// import { Article } from "./ArticleDashboard";
 import ArticleTableItem from "./ArticleTableItem";
 import Pagination from "@/components/Pagination";
 
@@ -11,7 +12,7 @@ type Props = {
   handlePrevious: () => void;
   handleNext: () => void;
   handleDoubleNext: () => void;
-  handleStatusChange: (id: number, newStatus: string) => void;
+  handleStatusChange: (id: string, newStatus: string) => void;
 };
 
 const ArticleTable = ({

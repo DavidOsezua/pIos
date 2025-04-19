@@ -1,12 +1,15 @@
 import { X } from "lucide-react";
 import styles from "../../components/Select.module.css";
 import { Search } from "@/components";
+import { Journal } from "@/interface";
 
 type Props = {
   close: () => void;
+  journals: Journal[];
+  handleJournalSelection: (journal: Journal) => void
 };
 
-const SelectJournal = ({ close }: Props) => {
+const SelectJournal = ({ close, journals, handleJournalSelection}: Props) => {
   return (
     <div className={`${styles.cardContainer}`}>
       <div className={`flex justify-between items-center`}>
@@ -18,6 +21,7 @@ const SelectJournal = ({ close }: Props) => {
 
       <Search />
 
+      {journals.map((journal) => <div onClick={() => handleJournalSelection(journal)}>{journal.title} </div>)}
       <div className={`${styles.allBands}`}></div>
     </div>
   );

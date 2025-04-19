@@ -1,29 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateJournalsAndShowStatus from "./CreateJournalsAndShowStatus";
 import FilterAndSearchJournals from "./FilterAndSearchJournals";
 import JournalTable from "./JournalTable";
+import { api } from "@/services/endpoint";
+import { Journal } from "@/interface";
 
-export interface Journal {
-  id: number;
-  category: string;
-  title: string;
-  dateUploaded: string;
-  articles: number;
-  status: string;
-}
 
-const mockJournals: Journal[] = Array.from({ length: 45 }).map((_, i) => ({
-  id: i + 1,
-  category: "PLOS Healthline",
-  title: "PLOS Global Public Health",
-  dateUploaded: "Saturday, 19 Aug 2024",
-  articles: 45,
-  status: ["Approved", "Pending", "Inactive"][i % 3],
-}));
+
+// const mockJournals: Journal[] = Array.from({ length: 45 }).map((_, i) => ({
+//   id: i + 1,
+//   category: "PLOS Healthline",
+//   title: "PLOS Global Public Health",
+//   dateUploaded: "Saturday, 19 Aug 2024",
+//   articles: 45,
+//   status: ["Approved", "Pending", "Inactive"][i % 3],
+// }));
 
 const JournalDashBoard = () => {
   //States and Variables
-  const [data, setData] = useState(mockJournals);
+  const [data, setData] = useState<Journal[]>([]);
   const [statusFilteredData, setStatusFilteredData] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -42,17 +37,41 @@ const JournalDashBoard = () => {
   const paginateData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
+  
+  
+  useEffect(() => {
+    api.get("/admin/journal").then((res) => {
+      
+      // console.log(res.data)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setData(res.data.map((dat: any) => {
+        
+        return {...dat, articles: dat.Articles.length, category: dat.Category,}
+      }))
+    })
+  }, [])
+  
   //Handlers
   const handleFilter = (status: string) => {
     setStatusFilteredData(status);
   };
 
-  const handleStatusChange = (id: number, newStatus: string) => {
-    setData((prev) =>
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    console.log(newStatus)
+    
+    try{
+      const res = await api.put(`/admin/journal/status/${id}`, {status: newStatus})
+      console.log(res.data)
+        setData((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, status: newStatus } : item
       )
     );
+
+    }catch(error){
+      console.log(error)  
+    }
+    
   };
 
   // Next and Double Next buttons
@@ -82,6 +101,7 @@ const JournalDashBoard = () => {
         total={data.filter((item) => item.status).length}
         pending={data.filter((item) => item.status === "Pending").length}
         inactive={data.filter((item) => item.status === "Inactive").length}
+        setData={setData}
       />
 
       <FilterAndSearchJournals

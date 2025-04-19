@@ -28,12 +28,15 @@ const blogPosts = [
   },
 ];
 
-export default function BlogSection() {
+export default function BlogSection({journalInfo}: {journalInfo: {
+    image: string | null;
+    name: string | null;
+}}) {
   return (
     <>
       <div className="bg-white shadow-sm max-w-4xl ml-auto mt-6 ">
         <h2 className="bg-blue-900 text-white px-4 py-2 font-semibold text-sm">
-          PLOS Biologue
+          {journalInfo.name}
         </h2>
 
         <div className="">

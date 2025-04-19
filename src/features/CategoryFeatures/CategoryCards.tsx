@@ -1,16 +1,17 @@
+import { CategoryInterface } from "@/interface";
 import CategoryCardItem from "./CategoryCardItem";
-import { Category } from "./CategoryDashboard";
+// import { Category } from "./CategoryDashboard";
 import Pagination from "@/components/Pagination";
 
 type Props = {
-  data: Category[];
+  data: CategoryInterface[];
   handleDoublePrevious: () => void;
   currentPage: number;
   totalPages: number;
   handlePrevious: () => void;
   handleNext: () => void;
   handleDoubleNext: () => void;
-  handleStatusChange: (id: number, newStatus: string) => void;
+  handleStatusChange: (id: string, newStatus: string) => void;
 };
 
 const CategoryCards = ({

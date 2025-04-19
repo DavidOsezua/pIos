@@ -3,14 +3,21 @@ import styles from "../../components/TitleAndStatus.module.css";
 import { useState } from "react";
 import Modal from "@/components/Modal";
 import CategoryForm from "./CategoryForm";
+import { CategoryInterface } from "@/interface";
+// import { Category } from "./CategoryDashboard";
+
+
 
 type Props = {
   total: number;
   active: number;
   inactive: number;
+  setData: React.Dispatch<React.SetStateAction<CategoryInterface[]>>
 };
 
-const CreateCategoryAndShowStatus = ({ active, total, inactive }: Props) => {
+
+
+const CreateCategoryAndShowStatus = ({ active, total, inactive, setData }: Props) => {
   const [openModal, setOpenModal] = useState(false);
 
   const modalHandler = () => {
@@ -30,16 +37,16 @@ const CreateCategoryAndShowStatus = ({ active, total, inactive }: Props) => {
             Create
           </button>
 
-          <div key={``} className={`${styles.card} ${styles.total}`}>
+          <div key={`total`} className={`${styles.card} ${styles.total}`}>
             <h3>Total</h3>
             <span>{total}</span>
           </div>
-          <div key={``} className={`${styles.card} ${styles.approve}`}>
+          <div key={`active`} className={`${styles.card} ${styles.approve}`}>
             <h3>Active</h3>
             <span>{active}</span>
           </div>
 
-          <div key={``} className={`${styles.card} ${styles.inactive}`}>
+          <div key={`inactive`} className={`${styles.card} ${styles.inactive}`}>
             <h3>Inactive</h3>
             <span>{inactive}</span>
           </div>
@@ -48,7 +55,7 @@ const CreateCategoryAndShowStatus = ({ active, total, inactive }: Props) => {
 
       {openModal && (
         <Modal modalHandler={modalHandler}>
-          <CategoryForm closeForm={modalHandler} />
+          <CategoryForm closeForm={modalHandler} setData={setData}/>
         </Modal>
       )}
     </>

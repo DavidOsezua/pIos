@@ -1,71 +1,55 @@
 import AdsSection from "@/components/AdsSection";
-import BlogSection from "@/components/BlogSection";
+// import BlogSection from "@/components/BlogSection";
 import NewContent from "@/components/NewContent";
+import { RawArticle } from "@/interface";
 import JournalCategoryLayout from "@/layout/JournalCategoryLayout";
-import { api } from "@/services/endpoint";
-import axios from "axios";
+import { api, BASEURL } from "@/services/endpoint";
 import { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
-interface Article {
-  title: string;
-  article_type: string;
-  created_at: string;
-  abstract: string;
-  cover_image: string;
-  journal_title: string;
-  approved: boolean;
-}
 
-interface TransformedArticle {
-  title: string;
-  type: string;
-  date: string;
-  imgBottom: string;
-  imgTop: string;
-  desc: string;
-  img: string;
-  credit: string;
-}
+
+
 
 const JournalCategory = () => {
-  const [articles, setArticles] = useState<TransformedArticle[]>([]);
+  const location = useLocation();
+  const [articles, setArticles] = useState<RawArticle[]>([]);
+  const [journalInfo, setJournalInfo] = useState<{image: string | null, name: string | null}>({name: location.state?.name, image: location.state?.image})
+  const { journalId } = useParams<{ journalId: string }>();
+  
 
-  const fetchArticlesData = async () => {
-    try {
-      const response = await api.get("api/v2/articles/");
-      console.log(response.data);
-      const ApprovedArticles = (response.data as Article[]).filter(
-        (article) => article.approved
-      );
-      const transformedData: TransformedArticle[] = ApprovedArticles.map(
-        (article: Article) => ({
-          title: article.title,
-          type: article.article_type.toUpperCase(),
-          date: new Date(article.created_at).toLocaleDateString("en-US"),
-          imgBottom: "",
-          imgTop: "",
-          desc: article.abstract,
-          img: article.cover_image,
-          credit: `Image credit: ${article.journal_title}`,
-        })
-      );
-
-      setArticles(transformedData);
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        console.error(e.response?.data?.detail);
-      } else {
-        console.error("An unexpected error occurred", e);
-      }
-    }
-  };
-
+  
+  // const params = new URLSearchParams(location.search);
+  // const journalName = params.get("name") || "";
+  // const location = useLocation();
+ 
+  
   useEffect(() => {
-    fetchArticlesData();
-  }, []);
+      const journalName = location.state?.name 
+      const journalImage = location.state?.image
+      
+      if(!journalName){
+        if(!journalId) return 
+        api.get(`/journal/${journalId}`).then((res) => {
+          setJournalInfo({name: res.data.title, image: res.data.image})
+        })
+      }else{
+        setJournalInfo({image: journalImage, name: journalName }) 
+      }
+
+    }, [location.state?.name , location.state?.image, journalId])
+  
+  
+  useEffect(() => {
+    api.get(`article?journalId=${journalId}`).then((res) => {
+      setArticles(res.data)
+    })
+
+  }, [journalId])
+
 
   return (
-    <JournalCategoryLayout>
+    <JournalCategoryLayout  journalInfo={journalInfo}>
       <section className={`section w-full bg-backgroundtwo`}>
         <div className={`sectionContainer w-full space-y-4`}>
           <div className={`w-full`}>
@@ -79,7 +63,7 @@ const JournalCategory = () => {
                   <div className="mr-4">
                     <div>
                       <img
-                        src={article.img}
+                        src={`${BASEURL}${article.image}`}
                         alt="thumb"
                         className=" object-cover"
                       />
@@ -90,20 +74,20 @@ const JournalCategory = () => {
                       <span className="uppercase text-blue-700">
                         {article.type}
                       </span>
-                      <span className="italic">{article.date}</span>
+                      <span className="italic">{article.createdAt}</span>
                     </div>
                     <h3 className="text-md font-bold leading-tight mt-1">
                       {article.title}
                     </h3>
-                    {article.desc && (
+                    {article.abstract && (
                       <p className="text-sm text-gray-700 mt-1 italic">
-                        {article.desc.length > 180
-                          ? `${article.desc.substring(0, 180)}...`
-                          : article.desc}
+                        {article.abstract.length > 180
+                          ? `${article.abstract.substring(0, 180)}...`
+                          : article.abstract}
                       </p>
                     )}
                     <p className="text-[11px] text-gray-400 mt-1">
-                      {article.credit}
+                      {article.title}
                     </p>
                   </div>
                 </div>
@@ -111,9 +95,9 @@ const JournalCategory = () => {
             ))}
           </div>
 
-          <NewContent />
+          <NewContent journalInfo = {journalInfo} />
 
-          <BlogSection />
+          {/* <BlogSection journalInfo = {journalInfo}/> */}
 
           <AdsSection />
         </div>

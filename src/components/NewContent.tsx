@@ -1,8 +1,11 @@
-const NewContent = () => {
+const NewContent = ({journalInfo}: {journalInfo?: {
+    image: string | null;
+    name: string | null;
+}}) => {
   return (
     <div className="w-full bg-white rounded-2l shadow-lg p-6 ">
       <h2 className="text-lg font-semibold mb-4 text-gray-800">
-        Get new content from PLOS Biology in your inbox
+        {`Get new content from ${journalInfo?.name} in your inbox`}
       </h2>
 
       <form className="space-y-8 w-full">
@@ -36,9 +39,9 @@ const NewContent = () => {
 
       <p className="text-xs text-gray-600 mt-4">
         <em>
-          PLOS will use your email address to provide content from PLOS Biology.
+          {`PLOS will use your email address to provide content from ${journalInfo?.name}.
           You can find out more about how PLOS processes your data by reading
-          our{" "}
+          our `}
           <a href="#" className="text-blue-600 underline">
             Privacy Policy
           </a>

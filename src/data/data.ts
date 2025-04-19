@@ -9,19 +9,19 @@ export const navLinks: NavLink[] = [
     path: "/ourmission",
   },
   {
-    link: "researchbyplOS",
+    link: "Research By PlOS",
     path: "/researchbyplOS",
   },
   {
-    link: "researchjournals",
+    link: "Research Journals",
     path: "/researchjournals",
   },
   {
-    link: "opensciencepolicy",
+    link: "Open Science Policy",
     path: "/opensciencepolicy",
   },
   {
-    link: "publicationfee",
+    link: "Publication Fee",
     path: "/publicationfee",
   },
 ];

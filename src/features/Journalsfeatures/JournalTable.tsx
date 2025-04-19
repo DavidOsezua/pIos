@@ -1,5 +1,6 @@
+import { Journal } from "@/interface";
 import styles from "../../components/Table.module.css";
-import { Journal } from "./JournalDashBoard";
+// import { Journal } from "./JournalDashBoard";
 import JournalTableItem from "./JournalTableItem";
 import Pagination from "@/components/Pagination";
 
@@ -11,7 +12,7 @@ type Props = {
   handlePrevious: () => void;
   handleNext: () => void;
   handleDoubleNext: () => void;
-  handleStatusChange: (id: number, newStatus: string) => void;
+  handleStatusChange: (id: string, newStatus: string) => void;
 };
 
 const JournalTable = ({

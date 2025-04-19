@@ -1,11 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
+import { CategoryInterface } from "@/interface";
+import { BASEURL } from "@/services/endpoint";
 
-import { Category } from "./CategoryDashboard";
 
 type Props = {
-  category: Category;
-  handleStatusChange: (id: number, newStatus: string) => void;
+  category: CategoryInterface;
+  handleStatusChange: (id: string, newStatus: string) => void;
 };
 
 const CategoryCardItem = ({ category, handleStatusChange }: Props) => {
@@ -26,11 +27,11 @@ const CategoryCardItem = ({ category, handleStatusChange }: Props) => {
           </p>
         </div>
         <img
-          src="/public/biology.png"
-          alt={category.title}
+          src={`${BASEURL}${category.image}`}
+          alt={category.name}
           className="w-16 h-16 rounded-full"
         />
-        <p className="text-center text-sm font-semibold">{category.title}</p>
+        <p className="text-center text-sm font-semibold">{category.name}</p>
         <div className="absolute top-2 right-2">
           <Switch
             className=""

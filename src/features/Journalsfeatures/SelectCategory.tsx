@@ -1,12 +1,16 @@
 import { Search } from "@/components";
 import styles from "../../components/Select.module.css";
 import { X } from "lucide-react";
+import { CategoryInterface } from "@/interface";
 
 type Props = {
   close: () => void;
+  categories: CategoryInterface[];
+  setSelectedCategory: React.Dispatch<React.SetStateAction<CategoryInterface | null>>
 };
 
-const SelectCategory = ({ close }: Props) => {
+const SelectCategory = ({ close, categories, setSelectedCategory }: Props) => {
+  
   return (
     <div className={`${styles.cardContainer}`}>
       <div className={`flex justify-between items-center`}>
@@ -17,8 +21,8 @@ const SelectCategory = ({ close }: Props) => {
       </div>
 
       <Search />
-
-      <div className={`${styles.allBands}`}></div>
+      {categories.map((category) => <div className="cursor-pointer" key={category.id}  onClick={() => setSelectedCategory(category)}>{category.name}</div>)}
+      {/* <div className={`${styles.allBands}`}>Dunno</div> */}
     </div>
   );
 };

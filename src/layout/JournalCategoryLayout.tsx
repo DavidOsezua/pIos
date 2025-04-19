@@ -4,12 +4,16 @@ import FooterTwo from "@/components/FooterTwo";
 
 type Props = {
   children: ReactNode;
+  journalInfo?: {
+    image: string | null;
+    name: string | null;
+}
 };
 
-const JournalCategoryLayout = ({ children }: Props) => {
+const JournalCategoryLayout = ({ children, journalInfo }: Props) => {
   return (
     <div>
-      <JournalCategoryNavbar />
+      <JournalCategoryNavbar journalInfo={journalInfo}/>
       <main>{children}</main>
       <FooterTwo />
     </div>

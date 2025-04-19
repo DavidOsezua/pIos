@@ -30,7 +30,7 @@ const App = () => {
         <Route path="opensciencepolicy" element={<OpenSciencePolicy />} />
         <Route path="ourmission" element={<OurMission />} />
         <Route path="publicationfee" element={<PublicationFees />} />
-        <Route path="journalcategory" element={<JournalCategory />} />
+        <Route path="journalcategory/:journalId" element={<JournalCategory />} />
         <Route path="createaccount" element={<CreateAccount />} />
         <Route path="forgotpassword" element={<ForgotPassword />} />
         <Route path="signin" element={<SignIn />} />

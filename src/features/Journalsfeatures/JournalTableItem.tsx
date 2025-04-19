@@ -1,12 +1,14 @@
-import { Journal } from "./JournalDashBoard";
+// import { Journal } from "./JournalDashBoard";
 import styles from "../../components/Table.module.css";
-import { Edit } from "@/components/svgComponent/Edit";
+// import { Edit } from "@/components/svgComponent/Edit";
 import { Delete } from "@/components/svgComponent/Delete";
-import { View } from "@/components/svgComponent/View";
+// import { View } from "@/components/svgComponent/View";
+import { Journal } from "@/interface";
+import { BASEURL } from "@/services/endpoint";
 
 type Props = {
   dataItem: Journal;
-  handleStatusChange: (id: number, newStatus: string) => void;
+  handleStatusChange: (id: string, newStatus: string) => void;
 };
 
 const statusColors: Record<string, string> = {
@@ -16,6 +18,7 @@ const statusColors: Record<string, string> = {
 };
 
 const JournalTableItem = ({ dataItem, handleStatusChange }: Props) => {
+  
   return (
     <tr className={"bg-[#ffffff]"}>
       <td className={`${styles.tdStyle}`}>{dataItem.id}</td>
@@ -23,29 +26,29 @@ const JournalTableItem = ({ dataItem, handleStatusChange }: Props) => {
       <td className={`${styles.tdStyle}`}>
         <div className="flex gap-3 items-center">
           <img
-            src="../../../public/biology.png"
+            src={`${BASEURL}${dataItem.category?.image}`}
             alt={`image`}
             className={`w-[40px] h-[40px] object-cover rounded-md`}
           />
           <div>
-            <h2>{dataItem.category}</h2>
+            <h2>{dataItem.category?.name}</h2>
           </div>
         </div>
       </td>
       <td className={`${styles.tdStyle}`}>
         <div className="flex gap-3 items-center">
           <img
-            src="../../../public/climate.png"
+            src={`${BASEURL}${dataItem.image}`}
             alt={`image`}
             className={`w-[40px] h-[40px] object-cover rounded-md`}
           />
           <div>
-            <h2>{dataItem.category}</h2>
+            <h2>{dataItem.title}</h2>
           </div>
         </div>
       </td>
-      <td className={`${styles.tdStyle}`}>Saturday, 19 Aug 2024</td>
-      <td className={`${styles.tdStyle}`}>45</td>
+      <td className={`${styles.tdStyle}`}>{dataItem.createdAt}</td>
+      <td className={`${styles.tdStyle}`}>{dataItem.articles}</td>
       <td className={`${styles.tdStyle}`}>
         <select
           value={dataItem.status}
@@ -64,12 +67,12 @@ const JournalTableItem = ({ dataItem, handleStatusChange }: Props) => {
 
       <td className={`${styles.tdStyle} text-[#FF6665]`}>
         <div className="flex items-center gap-3">
-          <button aria-label="Settings" onClick={() => {}}>
+          {/* <button aria-label="Settings" onClick={() => {}}>
             <Edit />
-          </button>
-          <button aria-label="Preview" onClick={() => {}}>
+          </button> */}
+          {/* <button aria-label="Preview" onClick={() => {}}>
             <View />
-          </button>
+          </button> */}
           <button onClick={() => {}} aria-label="Delete">
             <Delete />
           </button>

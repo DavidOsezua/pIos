@@ -24,22 +24,22 @@ const CreateAndStatusCard = ({
         Create
       </button>
 
-      <div key={``} className={`${styles.card} ${styles.total}`}>
+      <div key={`total`} className={`${styles.card} ${styles.total}`}>
         <h3>Total</h3>
         <span>{total}</span>
       </div>
 
-      <div key={``} className={`${styles.card} ${styles.approve}`}>
+      <div key={`approve`} className={`${styles.card} ${styles.approve}`}>
         <h3>Approve</h3>
         <span>{approved}</span>
       </div>
 
-      <div key={``} className={`${styles.card} ${styles.pending}`}>
+      <div key={`pending`} className={`${styles.card} ${styles.pending}`}>
         <h3>Pending</h3>
         <span>{pending}</span>
       </div>
 
-      <div key={``} className={`${styles.card} ${styles.inactive}`}>
+      <div key={`inactive`} className={`${styles.card} ${styles.inactive}`}>
         <h3>Inactive</h3>
         <span>{inactive}</span>
       </div>

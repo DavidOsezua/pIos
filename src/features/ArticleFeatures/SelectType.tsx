@@ -4,9 +4,22 @@ import { X } from "lucide-react";
 
 type Props = {
   close: () => void;
+  handleTypeSelection: (articleType: string) => void
 };
 
-const SelectType = ({ close }: Props) => {
+
+const articleTypes = [
+  "Blog Post",
+  "Essay",
+  "Perspective",
+  "Primer",
+  "Report",
+  "Research Article",
+  "Short Report"
+
+]
+
+const SelectType = ({ close, handleTypeSelection }: Props) => {
   return (
     <div className={`${styles.cardContainer}`}>
       <div className={`flex justify-between items-center`}>
@@ -18,7 +31,7 @@ const SelectType = ({ close }: Props) => {
 
       <Search />
 
-      <div className={`${styles.allBands}`}></div>
+      {articleTypes.map((article) => <div className="cursor-pointer" onClick={() => handleTypeSelection(article)}>{article}</div> ) }
     </div>
   );
 };

@@ -1,28 +1,16 @@
 import CreateCategoryAndShowStatus from "./CreateCategoryAndShowStatus";
 import FilterAndSearchCategory from "./FilterAndSearchCategory";
 import CategoryCards from "./CategoryCards";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { api } from "@/services/endpoint";
+import { CategoryInterface } from "@/interface";
 
-export interface Category {
-  id: number;
-  title: string;
-  status: string;
-}
 
-const mockCategories: Category[] = Array.from({ length: 12 }).map((_, i) => ({
-  id: i + 1,
-  title:
-    i % 3 === 0
-      ? "Life science"
-      : i % 4 === 0
-      ? "Sustainability science"
-      : "PLOS Health",
-  status: ["Active", "Inactive"][i % 3 === 0 ? 1 : 0],
-}));
+
 
 const CategoryDashboard = () => {
   //States and Variables
-  const [data, setData] = useState(mockCategories);
+  const [data, setData] = useState<CategoryInterface[]>([]);
   const [statusFilteredData, setStatusFilteredData] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -41,12 +29,32 @@ const CategoryDashboard = () => {
   const paginateData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
+
+  useEffect(() => {
+    api.get("/admin/category").then((res) => {
+      
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data = res.data.map((category: any) => {
+        return {id: category.id, name: category.name, status: category.isActive ? "Active" : "Inactive", image: category.image}
+      })
+      setData(data)
+    })
+
+
+  }, [])
+
+
   //Handlers
   const handleFilter = (status: string) => {
     setStatusFilteredData(status);
   };
 
-  const handleStatusChange = (id: number, newStatus: string) => {
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    console.log(id, newStatus)
+    
+    const body = {isActive: newStatus == "Active"}
+    await api.put(`/admin/category/status/${id}`, body)
+    
     setData((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, status: newStatus } : item
@@ -73,12 +81,14 @@ const CategoryDashboard = () => {
     if (currentPage - 2 >= 1) setCurrentPage(currentPage - 2);
     else setCurrentPage(1);
   };
+
   return (
     <div className={`space-y-10`}>
       <CreateCategoryAndShowStatus
         active={data.filter((item) => item.status === "Active").length}
-        total={data.filter((item) => item.status).length}
+        total={data.length}
         inactive={data.filter((item) => item.status === "Inactive").length}
+        setData = {setData}
       />
 
       <FilterAndSearchCategory
