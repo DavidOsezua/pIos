@@ -1,4 +1,6 @@
-import { BASEURL } from "@/services/endpoint";
+import { ACCESS_TOKEN } from "@/services/constants";
+import {  api, BASEURL } from "@/services/endpoint";
+import { useEffect, useState } from "react";
 
 import { NavLink } from "react-router-dom";
 
@@ -8,9 +10,32 @@ const Header = ({
   journalInfo?: {
     image: string | null;
     name: string | null;
-  };
-}) => {
-  return (
+}}) => {
+  
+  const [signedIn, setSignedIn] = useState(false)
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem(ACCESS_TOKEN)
+    console.log(accessToken)
+    
+    if(!accessToken){
+      setSignedIn(false)
+      return 
+    }
+
+    api.get("/auth/user").then(() => {
+      setSignedIn(true)
+      // console.log(res.data)
+    }).catch(() => {
+      setSignedIn(false)
+    })
+
+
+  }, [])
+  
+
+
+ return (
     <header className=" section bg-backgroundtwo">
       <div className="sectionContainer mx-auto space-y-4 px-4 md:px-0">
         {/* Right: Search and Auth */}
@@ -18,7 +43,8 @@ const Header = ({
           <a href="#" className="text-gray-600 hover:underline">
             plos.org
           </a>
-          <NavLink
+          {
+            !signedIn && <><NavLink
             to="/createaccount"
             className="text-gray-600 hover:underline"
           >
@@ -29,7 +55,14 @@ const Header = ({
             className="bg-blue-900 text-white px-3 py-1 rounded text-sm"
           >
             Sign in
-          </NavLink>
+          </NavLink></>
+          }
+          {signedIn && <NavLink
+            to="/profile"
+            className="bg-blue-900 text-white px-3 py-1 rounded text-sm"
+          >
+            Profile
+          </NavLink>}
         </div>
 
         {/* Left: Logo */}
@@ -57,14 +90,15 @@ const Header = ({
                   Browse
                 </a>
               </li>
-              <li>
-                <NavLink
-                  to="/publish"
-                  className="hover:underline font-semibold"
-                >
+              
+              {
+                signedIn && <li>
+                <NavLink to={"/publish"} className="hover:underline font-semibold">
                   Publish
                 </NavLink>
               </li>
+              }
+              
               <li>
                 <a href="#" className="hover:underline font-semibold">
                   About

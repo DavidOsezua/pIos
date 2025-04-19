@@ -16,16 +16,16 @@ const SignIn = () => {
     try {
       e.preventDefault();
       console.log("Sign in:", { email, password });
-      const response = await api.post("api/auth/login/", { email, password }, {
+      const response = await api.post("/auth/login", { email, password }, {
         headers: {
           "Content-Type": "application/json"
         }
       })
       console.log("access token", response.data?.token)
       console.log("success message", response.data?.message) // add this to the success card 
-      localStorage.setItem(ACCESS_TOKEN, response.data?.token)
+      localStorage.setItem(ACCESS_TOKEN, response.data?.accessToken)
       console.log(response)
-      navigate("/journalcategory")
+      navigate("/profile")
     } catch (e) {
       if (axios.isAxiosError(e)) {
         console.error(e.response?.data?.detail);

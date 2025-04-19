@@ -8,6 +8,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
   const [form, setForm] = useState({
+    title: "",
     email: "",
     firstName: "",
     lastName: "",
@@ -28,23 +29,25 @@ const CreateAccount = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      
       const FilterForm = {
+        title: form.title,
         email: form.email,
-        first_name: form.firstName,
-        last_name: form.lastName,
+        firstName: form.firstName,
+        lastName: form.lastName,
         password: form.password,
-        confirm_password: form.confirmPassword,
-
+        
       }
+
       console.log("Form submitted:", FilterForm);
-      const response = await api.post("api/auth/register/", FilterForm, {
+      const response = await api.post("/auth/register", FilterForm, {
         headers: {
           "Content-Type": "application/json"
         }
       })
-      console.log("access token", response.data?.token)
-      console.log("success message", response.data?.message) // add this to the success card 
-      localStorage.setItem(ACCESS_TOKEN, response.data?.token)
+      // console.log("access token", response.data?.token)
+      // console.log("success message", response.data?.message) // add this to the success card 
+      // localStorage.setItem(ACCESS_TOKEN, response.data?.token)
       console.log(response)
       navigate("/signin")
     } catch (e) {
@@ -69,6 +72,14 @@ const CreateAccount = () => {
               <span className="text-blue-600 underline">Open Access</span>{" "}
               scholarly communications.
             </p>
+
+            <InputField
+              label="Title"
+              
+              name="title"
+              value={form.title}
+              onChange={handleChange}
+            />
 
             <InputField
               label="Email"

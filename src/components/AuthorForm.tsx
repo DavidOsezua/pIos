@@ -17,7 +17,8 @@ const AuthorForm = ({
 }: AuthorsProps) => {
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">The Authors</h2>
+      <h2 className="text-xl font-semibold mb-1">Other Authors</h2>
+      <p className="text-sm mb-4">Authors who contribute to the article, no need to include your name, your name will be added automatically</p>
       {authors.map((author, index) => (
         <div key={index} className="mb-6">
           <h3 className="font-semibold mb-2">Author {index + 1}</h3>

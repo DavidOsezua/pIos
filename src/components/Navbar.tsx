@@ -118,7 +118,7 @@ const Navbar = () => {
 
               {title.links.map((link) => (
                 <li className={``}>
-                  <NavLink to="/journalcategory">{link}</NavLink>
+                  <NavLink to={`/journalcategory/${link.id}`}>{link.title}</NavLink>
                 </li>
               ))}
             </ul>

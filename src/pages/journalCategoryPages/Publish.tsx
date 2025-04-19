@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AbstractFrom from "@/components/AbstractFrom";
 import ArticleForm from "@/components/ArticleForm";
 import AuthorForm from "@/components/AuthorForm";
 import Upload from "@/components/Upload";
 import JournalCategoryLayout from "@/layout/JournalCategoryLayout";
+import { Journal } from "@/interface";
+import { api } from "@/services/endpoint";
 
 export type Author = {
   title: string;
@@ -15,6 +17,7 @@ export type Author = {
 export type FormData = {
   title: string;
   type: string;
+  journal: "";
   cover: File | null;
   abstract: string;
   authors: Author[];
@@ -30,14 +33,27 @@ const StepTabs = [
 
 const Publish = () => {
   const [step, setStep] = useState<number>(0);
+  const [journals, setJournals] = useState<Journal[]>([])
   const [formData, setFormData] = useState<FormData>({
     title: "",
     type: "",
+    journal: "",
     cover: null,
     abstract: "",
     authors: [{ title: "Mr", lastName: "", otherName: "", email: "" }],
     articleFile: null,
   });
+
+
+  useEffect(() => {
+    console.log("Will fetch journals")  
+    api.get("/journal").then((res) => {
+            console.log(res.data)
+            setJournals(res.data)
+          })
+    }, [])
+
+
 
   const updateField = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -68,7 +84,22 @@ const Publish = () => {
     // submission logic here
   };
 
-  const next = () => setStep((s) => Math.min(s + 1, StepTabs.length - 1));
+  useEffect(() => {
+    console.log(formData)
+  }, [formData])
+
+  const next = () => {
+    if(step == 0){
+      // 
+    }
+    if(step == 1){
+      // 
+    }
+
+
+    
+    setStep((s) => Math.min(s + 1, StepTabs.length - 1))
+  };
   const back = () => setStep((s) => Math.max(s - 1, 0));
 
   return (
@@ -93,6 +124,7 @@ const Publish = () => {
 
           {step === 0 && (
             <ArticleForm
+              journals={journals}
               onNext={next}
               data={formData}
               updateField={updateField}
