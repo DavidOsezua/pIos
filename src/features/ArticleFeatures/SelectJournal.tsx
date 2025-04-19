@@ -24,7 +24,13 @@ const SelectJournal = ({ close, journals, handleJournalSelection }: Props) => {
       <div className={`${styles.allBands}`}>
         {journals.map((journal) => (
           <>
-            <div onClick={() => handleJournalSelection(journal)}>
+            <div
+              onClick={() => {
+                handleJournalSelection(journal);
+                close();
+              }}
+              className="cursor-pointer"
+            >
               {journal.title}
             </div>
             <div className={`${styles.hr}`}></div>{" "}

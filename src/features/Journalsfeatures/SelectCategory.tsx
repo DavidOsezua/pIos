@@ -28,7 +28,10 @@ const SelectCategory = ({ close, categories, setSelectedCategory }: Props) => {
             <div
               className="cursor-pointer"
               key={category.id}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => {
+                setSelectedCategory(category);
+                close();
+              }}
             >
               {category.name}
             </div>

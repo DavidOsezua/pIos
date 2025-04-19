@@ -1,14 +1,16 @@
-import {  BASEURL } from "@/services/endpoint";
+import { BASEURL } from "@/services/endpoint";
 
 import { NavLink } from "react-router-dom";
 
-const Header = ({journalInfo}: {journalInfo?: {
+const Header = ({
+  journalInfo,
+}: {
+  journalInfo?: {
     image: string | null;
     name: string | null;
-}}) => {
-  
-  
- return (
+  };
+}) => {
+  return (
     <header className=" section bg-backgroundtwo">
       <div className="sectionContainer mx-auto space-y-4 px-4 md:px-0">
         {/* Right: Search and Auth */}
@@ -35,9 +37,13 @@ const Header = ({journalInfo}: {journalInfo?: {
         {/* Middle: Navigation */}
         <nav className=" flex justify-between text-sm text-gray-800">
           <div className="flex items-center space-x-2">
-            <img src={`${BASEURL}${journalInfo?.image}`} alt="PLOS" width={50} className="rounded-lg"/>
+            <img
+              src={`${BASEURL}${journalInfo?.image}`}
+              alt="PLOS"
+              width={50}
+              className="rounded-lg"
+            />
             <span className="text-[0.9rem] font-semibold text-accentone">
-              
               {journalInfo?.name}
             </span>
           </div>
@@ -52,9 +58,12 @@ const Header = ({journalInfo}: {journalInfo?: {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:underline font-semibold">
+                <NavLink
+                  to="/publish"
+                  className="hover:underline font-semibold"
+                >
                   Publish
-                </a>
+                </NavLink>
               </li>
               <li>
                 <a href="#" className="hover:underline font-semibold">

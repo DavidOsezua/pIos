@@ -34,7 +34,10 @@ const SelectType = ({ close, handleTypeSelection }: Props) => {
           <>
             <div
               className="cursor-pointer"
-              onClick={() => handleTypeSelection(article)}
+              onClick={() => {
+                handleTypeSelection(article);
+                close();
+              }}
             >
               {article}
             </div>
