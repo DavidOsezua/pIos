@@ -6,10 +6,10 @@ import { Journal } from "@/interface";
 type Props = {
   close: () => void;
   journals: Journal[];
-  handleJournalSelection: (journal: Journal) => void
+  handleJournalSelection: (journal: Journal) => void;
 };
 
-const SelectJournal = ({ close, journals, handleJournalSelection}: Props) => {
+const SelectJournal = ({ close, journals, handleJournalSelection }: Props) => {
   return (
     <div className={`${styles.cardContainer}`}>
       <div className={`flex justify-between items-center`}>
@@ -21,8 +21,16 @@ const SelectJournal = ({ close, journals, handleJournalSelection}: Props) => {
 
       <Search />
 
-      {journals.map((journal) => <div onClick={() => handleJournalSelection(journal)}>{journal.title} </div>)}
-      <div className={`${styles.allBands}`}></div>
+      <div className={`${styles.allBands}`}>
+        {journals.map((journal) => (
+          <>
+            <div onClick={() => handleJournalSelection(journal)}>
+              {journal.title}
+            </div>
+            <div className={`${styles.hr}`}></div>{" "}
+          </>
+        ))}
+      </div>
     </div>
   );
 };

@@ -4,9 +4,8 @@ import { X } from "lucide-react";
 
 type Props = {
   close: () => void;
-  handleTypeSelection: (articleType: string) => void
+  handleTypeSelection: (articleType: string) => void;
 };
-
 
 const articleTypes = [
   "Blog Post",
@@ -15,9 +14,8 @@ const articleTypes = [
   "Primer",
   "Report",
   "Research Article",
-  "Short Report"
-
-]
+  "Short Report",
+];
 
 const SelectType = ({ close, handleTypeSelection }: Props) => {
   return (
@@ -31,7 +29,19 @@ const SelectType = ({ close, handleTypeSelection }: Props) => {
 
       <Search />
 
-      {articleTypes.map((article) => <div className="cursor-pointer" onClick={() => handleTypeSelection(article)}>{article}</div> ) }
+      <div className={`${styles.allBands}`}>
+        {articleTypes.map((article) => (
+          <>
+            <div
+              className="cursor-pointer"
+              onClick={() => handleTypeSelection(article)}
+            >
+              {article}
+            </div>
+            <div className={`${styles.hr}`}></div>
+          </>
+        ))}
+      </div>
     </div>
   );
 };
