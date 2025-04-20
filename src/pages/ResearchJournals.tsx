@@ -82,7 +82,7 @@ const ResearchJournals = () => {
                       <img
                         src={`${BASEURL}${item.image}`}
                         alt={item.title}
-                        className="w-full  object-cover rounded"
+                        className="w-full max-w-[321px] h-[160px]  object-cover rounded"
                       />
                       <NavLink
                         to={`/journalcategory/${item.id}`}
