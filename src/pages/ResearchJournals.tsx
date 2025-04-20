@@ -5,16 +5,17 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const ResearchJournals = () => {
-  const [categories, setCategories] = useState<CategoryWithJournals[]>([])
-  
+  const [categories, setCategories] = useState<CategoryWithJournals[]>([]);
+
   useEffect(() => {
-    
     api.get("/category").then((res) => {
-      const data =res.data as CategoryWithJournals[]
-      setCategories(data.filter((datum) => Object.keys(datum.journals).length > 0))
-    })
-  }, [])
-  
+      const data = res.data as CategoryWithJournals[];
+      setCategories(
+        data.filter((datum) => Object.keys(datum.journals).length > 0)
+      );
+    });
+  }, []);
+
   return (
     <div className="transitionss">
       <Navbar />
@@ -49,60 +50,57 @@ const ResearchJournals = () => {
             {/* Categories */}
             <div className="flex flex-wrap gap-8">
               {categories.map((category) => {
-                return  <div className="space-y-1">
-                <h3 className="font-semibold text-accentone">{category.name}</h3>
-                <div className="w-full h-1 bg-emerald-800 rounded" />
-              </div>
+                return (
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-accentone">
+                      {category.name}
+                    </h3>
+                    <div className="w-full h-1 bg-emerald-800 rounded" />
+                  </div>
+                );
               })}
-              
             </div>
           </div>
         </section>
-        
 
-        {
-          categories.map((category) => {
-            return <section className={`pb-[1rem]`}>
-          <div className="sectionContainer px-4 lg:px-0   space-y-8">
-            {/* Section Title */}
-            <div>
-              <h2 className="text-xl font-bold text-accentone">{category.name}</h2>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* Journal 1 */}
-
-              {category.journals.map((item) => (
-                <div className="space-y-3">
-                  <img
-                    src={`${BASEURL}${item.image}`}
-                    alt={item.title}
-                    className="w-full  object-cover rounded"
-                  />
-                  <NavLink
-                    to={`/journalcategory/${item.id}`}
-                    className="font-bold text-accentone"
-                    state={{name: item.title, image: item.image}}
-                  >
-                    {item.title}
-                  </NavLink>
-                  <p className="text-sm text-gray-800 leading-relaxed">
-                    {item.description}
-                  </p>
+        {categories.map((category) => {
+          return (
+            <section className={`pb-[1rem]`}>
+              <div className="sectionContainer px-4 lg:px-0   space-y-8">
+                {/* Section Title */}
+                <div>
+                  <h2 className="text-xl font-bold text-accentone">
+                    {category.name}
+                  </h2>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-          })
-        }
-        
 
-        
+                <div className="grid md:grid-cols-3 gap-6">
+                  {/* Journal 1 */}
 
-        
-      
-      
+                  {category.journals.map((item) => (
+                    <div className="space-y-3">
+                      <img
+                        src={`${BASEURL}${item.image}`}
+                        alt={item.title}
+                        className="w-full  object-cover rounded"
+                      />
+                      <NavLink
+                        to={`/journalcategory/${item.id}`}
+                        className="font-bold text-accentone"
+                        state={{ name: item.title, image: item.image }}
+                      >
+                        {item.title}
+                      </NavLink>
+                      <p className="text-sm text-gray-800 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+        })}
       </main>
       <Footer />
     </div>

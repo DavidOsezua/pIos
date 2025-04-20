@@ -33,7 +33,7 @@ const StepTabs = [
 
 const Publish = () => {
   const [step, setStep] = useState<number>(0);
-  const [journals, setJournals] = useState<Journal[]>([])
+  const [journals, setJournals] = useState<Journal[]>([]);
   const [formData, setFormData] = useState<FormData>({
     title: "",
     type: "",
@@ -44,16 +44,13 @@ const Publish = () => {
     articleFile: null,
   });
 
-
   useEffect(() => {
-    console.log("Will fetch journals")  
+    console.log("Will fetch journals");
     api.get("/journal").then((res) => {
-            console.log(res.data)
-            setJournals(res.data)
-          })
-    }, [])
-
-
+      console.log(res.data);
+      setJournals(res.data);
+    });
+  }, []);
 
   const updateField = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -85,21 +82,41 @@ const Publish = () => {
   };
 
   useEffect(() => {
-    console.log(formData)
-  }, [formData])
+    console.log(formData);
+  }, [formData]);
+
+  const stepValidators: { [key: number]: () => boolean } = {
+    0: () =>
+      !!formData.title &&
+      !!formData.type &&
+      !!formData.journal &&
+      formData.cover !== null,
+
+    1: () => !!formData.abstract,
+
+    2: () =>
+      Array.isArray(formData.authors) &&
+      formData.authors.every(
+        (author) =>
+          author.lastName.trim() &&
+          author.otherName.trim() &&
+          author.email.trim()
+      ),
+
+    3: () => formData.articleFile !== null,
+  };
 
   const next = () => {
-    if(step == 0){
-      // 
-    }
-    if(step == 1){
-      // 
+    const isValid = stepValidators[step] ? stepValidators[step]() : true;
+
+    if (!isValid) {
+      alert("Please complete all required fields.");
+      return;
     }
 
-
-    
-    setStep((s) => Math.min(s + 1, StepTabs.length - 1))
+    setStep((s) => Math.min(s + 1, StepTabs.length - 1));
   };
+
   const back = () => setStep((s) => Math.max(s - 1, 0));
 
   return (
