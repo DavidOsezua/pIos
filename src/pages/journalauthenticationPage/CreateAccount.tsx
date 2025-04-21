@@ -1,6 +1,6 @@
 import { InputField } from "@/components";
 import AuthenticationLayout from "@/layout/AuthenticationLayout";
-import { ACCESS_TOKEN } from "@/services/constants";
+// import { ACCESS_TOKEN } from "@/services/constants";
 import { api } from "@/services/endpoint";
 import axios from "axios";
 import React, { useState } from "react";
@@ -16,7 +16,7 @@ const CreateAccount = () => {
     confirmPassword: "",
     agreed: false,
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -29,35 +29,33 @@ const CreateAccount = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      
       const FilterForm = {
         title: form.title,
         email: form.email,
         firstName: form.firstName,
         lastName: form.lastName,
         password: form.password,
-        
-      }
+      };
 
       console.log("Form submitted:", FilterForm);
       const response = await api.post("/auth/register", FilterForm, {
         headers: {
-          "Content-Type": "application/json"
-        }
-      })
+          "Content-Type": "application/json",
+        },
+      });
       // console.log("access token", response.data?.token)
-      // console.log("success message", response.data?.message) // add this to the success card 
+      // console.log("success message", response.data?.message) // add this to the success card
       // localStorage.setItem(ACCESS_TOKEN, response.data?.token)
-      console.log(response)
-      navigate("/signin")
+      console.log(response);
+      navigate("/signin");
     } catch (e) {
       if (axios.isAxiosError(e)) {
         console.error(e.response?.data?.detail);
       } else {
         console.error("An unexpected error occurred", e);
       }
-    };
-  }
+    }
+  };
   return (
     <AuthenticationLayout>
       <section className={`section`}>
@@ -75,7 +73,6 @@ const CreateAccount = () => {
 
             <InputField
               label="Title"
-              
               name="title"
               value={form.title}
               onChange={handleChange}

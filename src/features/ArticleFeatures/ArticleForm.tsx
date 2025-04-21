@@ -35,15 +35,19 @@ interface ArticleInput {
   cover?: File | null;
 }
 
-type Props =  {
-  journals: Journal[],
-  setData:  React.Dispatch<React.SetStateAction<Article[]>>
-  modalHandler: () => void
-}
+type Props = {
+  journals: Journal[];
+  setData: React.Dispatch<React.SetStateAction<Article[]>>;
+  modalHandler: () => void;
+};
 
-const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props) => {
+const ArticleForm = ({
+  journals,
+  setData,
+  modalHandler: modalHandlerMain,
+}: Props) => {
   const [step, setStep] = useState<number>(1);
-  const [errorMsg, setErrorMsg] = useState("")
+  const [errorMsg, setErrorMsg] = useState("");
 
   const [authors, setAuthors] = useState<Author[]>([
     { title: "", lastName: "", otherNames: "", email: "" },
@@ -90,134 +94,133 @@ const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props)
     ]);
   };
 
-  const handleArticleChange = (field: keyof ArticleInput, value: string | File | Journal) => {
+  const handleArticleChange = (
+    field: keyof ArticleInput,
+    value: string | File | Journal
+  ) => {
     setArticle((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleJournalSelection = (journal: Journal) => {
-    handleArticleChange("journal", journal)
-  }
+    handleArticleChange("journal", journal);
+  };
 
   const handleTypeSelection = (articleType: string) => {
-    handleArticleChange("type", articleType)
-  }
+    handleArticleChange("type", articleType);
+  };
   const removeAuthor = (index: number) => {
-    setAuthors((authors) => authors.filter((_, i) => i != index))
-    
-  }
+    setAuthors((authors) => authors.filter((_, i) => i != index));
+  };
 
   const handleNextStep = () => {
-      if(!article.title){
-        setErrorMsg("Title required")
-        return
-      }
-      if(!article.journal){
-        setErrorMsg("Journal required")
-        return 
-      }
+    if (!article.title) {
+      setErrorMsg("Title required");
+      return;
+    }
+    if (!article.journal) {
+      setErrorMsg("Journal required");
+      return;
+    }
 
-      if(!article.type){
-        setErrorMsg("Article type required")
-        return 
-      }
+    if (!article.type) {
+      setErrorMsg("Article type required");
+      return;
+    }
 
-      if(!article.abstract){
-        setErrorMsg("Abstract required")
-        return 
-      }
+    if (!article.abstract) {
+      setErrorMsg("Abstract required");
+      return;
+    }
 
-      if(!article.cover){
-        setErrorMsg("Please upload article cover")
-        return 
-      }
+    if (!article.cover) {
+      setErrorMsg("Please upload article cover");
+      return;
+    }
 
-    setErrorMsg("")
-    setStep(2)
-  }
+    setErrorMsg("");
+    setStep(2);
+  };
 
   // submit Logic
   const handleSubmit = async () => {
-    setErrorMsg("")
-    if(authors.length == 0){
-      setErrorMsg("Article need at least 1 author ")
-      return 
+    setErrorMsg("");
+    if (authors.length == 0) {
+      setErrorMsg("Article need at least 1 author ");
+      return;
     }
-    
-    const error = authors.map((author, index) => {
-      author.title = "Dr."
 
-      if(!author.email){
-          return `Author ${index+1} email required`
+    const error = authors
+      .map((author, index) => {
+        author.title = "Dr.";
+
+        if (!author.email) {
+          return `Author ${index + 1} email required`;
         }
-        if(!author.lastName){
-          return `Author ${index+1} lastName required`
+        if (!author.lastName) {
+          return `Author ${index + 1} lastName required`;
         }
-        if(!author.otherNames){
-          return `Author ${index+1} firstName required`
+        if (!author.otherNames) {
+          return `Author ${index + 1} firstName required`;
         }
 
-        if(!author.title){
-          return `Author ${index+1} title required`
+        if (!author.title) {
+          return `Author ${index + 1} title required`;
         }
-    }).filter((d) => d != undefined).at(0)
-    
-    if(error){
-      setErrorMsg(error)
-      return 
+      })
+      .filter((d) => d != undefined)
+      .at(0);
+
+    if (error) {
+      setErrorMsg(error);
+      return;
     }
 
     const formData = new FormData();
-    
+
     const ar = {
       title: article.title,
       journalId: article.journal?.id,
       type: article.type,
       abstract: article.abstract,
-    
-    }
-    
-    formData.append("cover", article.cover!)
-    formData.append("article", JSON.stringify(ar))
-    formData.append("authors", JSON.stringify(authors))
-    
-    try{
-      const res  = await api.post("/admin/article", formData,  {
+    };
+
+    formData.append("cover", article.cover!);
+    formData.append("article", JSON.stringify(ar));
+    formData.append("authors", JSON.stringify(authors));
+
+    try {
+      const res = await api.post("/admin/article", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      })
-    const response = res.data
-    const data: Article = {
-      id: response.id, 
-      title: response.title,
-      status: response.status,
-      type: response.type,
-      image: response.image,
-      createdAt: response.createdAt,
+      });
+      const response = res.data;
+      const data: Article = {
+        id: response.id,
+        title: response.title,
+        status: response.status,
+        type: response.type,
+        image: response.image,
+        createdAt: response.createdAt,
 
-      journal: {
-        id: response.journal.id,
-        title: response.journal.title,
-        image: response.journal.image
-      }
-    }
+        journal: {
+          id: response.journal.id,
+          title: response.journal.title,
+          image: response.journal.image,
+        },
+      };
 
-    setData((prev) => [data, ...prev])
-    modalHandlerMain()
-
-    }catch(error){
-      console.log(error)
-      if(isAxiosError(error)) {  
-        setErrorMsg(error.response?.data.error)
+      setData((prev) => [data, ...prev]);
+      modalHandlerMain();
+    } catch (error) {
+      console.log(error);
+      if (isAxiosError(error)) {
+        setErrorMsg(error.response?.data.error);
       } else {
         setErrorMsg("Unknown error occured");
       }
     }
-
-    
   };
-
-
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -238,7 +241,6 @@ const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props)
                   <input
                     value={article.journal?.title}
                     placeholder="Select Journal"
-
                     className={`${styles.input}`}
                   />
                   <button
@@ -253,7 +255,7 @@ const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props)
                     <Modal modalHandler={modalHandler}>
                       <SelectJournal
                         close={closeDropdown}
-                        journals = {journals}
+                        journals={journals}
                         handleJournalSelection={handleJournalSelection}
                       />
                     </Modal>
@@ -287,7 +289,6 @@ const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props)
                       <SelectType
                         close={closeDropdown}
                         handleTypeSelection={handleTypeSelection}
-                        
                       />
                     </Modal>
                   )}
@@ -307,10 +308,9 @@ const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props)
               </label>
               <Input
                 type="file"
-                onChange={(e) =>{
-                  
-                  if(e.target.files){
-                    handleArticleChange("cover", e.target.files[0])
+                onChange={(e) => {
+                  if (e.target.files) {
+                    handleArticleChange("cover", e.target.files[0]);
                   }
                 }}
               />
@@ -321,7 +321,9 @@ const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props)
             >
               Next
             </Button>
-            {errorMsg && <div className="text-center w-full text-red-500">{errorMsg}</div>}
+            {errorMsg && (
+              <div className="text-center w-full text-red-500">{errorMsg}</div>
+            )}
           </CardContent>
         </Card>
       )}
@@ -332,15 +334,19 @@ const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props)
             <h2 className="text-xl font-bold">Add Authors</h2>
             {authors.map((author, index) => (
               <div key={index} className="space-y-2 border-t pt-4">
-                <h3 className="font-semibold">Author {index + 1} 
-                  <span className="cursor-pointer" onClick={() => removeAuthor(index)}>X</span>
-                
-                </h3> 
-                
+                <h3 className="font-semibold">
+                  Author {index + 1}
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => removeAuthor(index)}
+                  >
+                    X
+                  </span>
+                </h3>
+
                 <div className="grid grid-cols-3 gap-4">
-                  <Select
-                    onValueChange={(value) =>
-                      handleAuthorChange(index, "title", value)
+                  {/* <Select
+                  
                     }
                   >
                     <SelectTrigger>
@@ -354,7 +360,18 @@ const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props)
                         </SelectItem>
                       ))}
                     </SelectContent>
-                  </Select>
+                  </Select> */}
+                  <select
+                    className="border p-2 rounded"
+                    value={author.title}
+                    onChange={(e) =>
+                      handleAuthorChange(index, "title", e.target.value)
+                    }
+                  >
+                    <option>Mr</option>
+                    <option>Ms</option>
+                    <option>Dr</option>
+                  </select>
                   <Input
                     placeholder="Enter Last name"
                     value={author.lastName}
@@ -396,11 +413,11 @@ const ArticleForm = ({journals, setData, modalHandler: modalHandlerMain}: Props)
             >
               Back
             </Button>
-            {errorMsg && <div className="text-center w-full text-red-500">{errorMsg}</div>}
+            {errorMsg && (
+              <div className="text-center w-full text-red-500">{errorMsg}</div>
+            )}
           </CardContent>
-            
         </Card>
-        
       )}
     </div>
   );
