@@ -19,6 +19,7 @@ import Journals from "./pages/adminPages/Journals";
 import Categories from "./pages/adminPages/Categories";
 import Profile from "./pages/journalCategoryPages/Profile";
 import Publish from "./pages/journalCategoryPages/Publish";
+import Instruction from "./pages/journalCategoryPages/Instruction";
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const App = () => {
         </Route>
 
         <Route path="profile" element={<Profile />} />
+        <Route path="instructions" element={<Instruction />} />
 
         <Route path="publish" element={<Publish />} />
       </Routes>

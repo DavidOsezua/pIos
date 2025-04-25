@@ -1,5 +1,5 @@
 import { ACCESS_TOKEN } from "@/services/constants";
-import {  api, BASEURL } from "@/services/endpoint";
+import { api, BASEURL } from "@/services/endpoint";
 import { useEffect, useState } from "react";
 
 import { NavLink } from "react-router-dom";
@@ -10,32 +10,31 @@ const Header = ({
   journalInfo?: {
     image: string | null;
     name: string | null;
-}}) => {
-  
-  const [signedIn, setSignedIn] = useState(false)
+  };
+}) => {
+  const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN)
-    console.log(accessToken)
-    
-    if(!accessToken){
-      setSignedIn(false)
-      return 
+    const accessToken = localStorage.getItem(ACCESS_TOKEN);
+    console.log(accessToken);
+
+    if (!accessToken) {
+      setSignedIn(false);
+      return;
     }
 
-    api.get("/auth/user").then(() => {
-      setSignedIn(true)
-      // console.log(res.data)
-    }).catch(() => {
-      setSignedIn(false)
-    })
+    api
+      .get("/auth/user")
+      .then(() => {
+        setSignedIn(true);
+        // console.log(res.data)
+      })
+      .catch(() => {
+        setSignedIn(false);
+      });
+  }, []);
 
-
-  }, [])
-  
-
-
- return (
+  return (
     <header className=" section bg-backgroundtwo">
       <div className="sectionContainer mx-auto space-y-4 px-4 md:px-0">
         {/* Right: Search and Auth */}
@@ -43,33 +42,37 @@ const Header = ({
           <a href="#" className="text-gray-600 hover:underline">
             plos.org
           </a>
-          {
-            !signedIn && <><NavLink
-            to="/createaccount"
-            className="text-gray-600 hover:underline"
-          >
-            Create account
-          </NavLink>
-          <NavLink
-            to="/signin"
-            className="bg-blue-900 text-white px-3 py-1 rounded text-sm"
-          >
-            Sign in
-          </NavLink></>
-          }
-          {signedIn && <NavLink
-            to="/profile"
-            className="bg-blue-900 text-white px-3 py-1 rounded text-sm"
-          >
-            Profile
-          </NavLink>}
+          {!signedIn && (
+            <>
+              <NavLink
+                to="/createaccount"
+                className="text-gray-600 hover:underline"
+              >
+                Create account
+              </NavLink>
+              <NavLink
+                to="/signin"
+                className="bg-blue-900 text-white px-3 py-1 rounded text-sm"
+              >
+                Sign in
+              </NavLink>
+            </>
+          )}
+          {signedIn && (
+            <NavLink
+              to="/profile"
+              className="bg-blue-900 text-white px-3 py-1 rounded text-sm"
+            >
+              Profile
+            </NavLink>
+          )}
         </div>
 
         {/* Left: Logo */}
 
         {/* Middle: Navigation */}
         <nav className=" flex justify-between text-sm text-gray-800">
-          <div className="flex items-center space-x-2">
+          <NavLink to="/" className="flex items-center space-x-2">
             <img
               src={`${BASEURL}${journalInfo?.image}`}
               alt="PLOS"
@@ -79,7 +82,7 @@ const Header = ({
             <span className="text-[0.9rem] font-semibold text-accentone">
               {journalInfo?.name}
             </span>
-          </div>
+          </NavLink>
 
           <div
             className={` hidden md:flex items-center justify-between w-[30%] gap-1`}
@@ -90,15 +93,18 @@ const Header = ({
                   Browse
                 </a>
               </li>
-              
-              {
-                signedIn && <li>
-                <NavLink to={"/publish"} className="hover:underline font-semibold">
-                  Publish
-                </NavLink>
-              </li>
-              }
-              
+
+              {signedIn && (
+                <li>
+                  <NavLink
+                    to={"/publish"}
+                    className="hover:underline font-semibold"
+                  >
+                    Publish
+                  </NavLink>
+                </li>
+              )}
+
               <li>
                 <a href="#" className="hover:underline font-semibold">
                   About
