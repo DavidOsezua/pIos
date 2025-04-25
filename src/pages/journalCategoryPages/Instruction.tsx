@@ -1,9 +1,6 @@
 import JournalCategoryLayout from "@/layout/JournalCategoryLayout";
-import React from "react";
 
-type Props = {};
-
-const Instruction = (props: Props) => {
+const Instruction = () => {
   return (
     <JournalCategoryLayout>
       <div className="p-6 max-w-5xl mx-auto text-gray-800">
